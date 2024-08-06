@@ -1,6 +1,9 @@
 #pragma once
 #include "Protocol.pb.h"
 
+#if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
+#include "S1.h"
+#endif
 
 using PacketHandlerFunc = std::function<bool(PacketSessionRef&, BYTE*, int32)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -63,13 +66,21 @@ private:
 		const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
 		const uint16 packetSize = dataSize + sizeof(PacketHeader);
 
+#if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
+		SendBufferRef sendBuffer = MakeShared<SendBuffer>(packetSize);
+#else
 		SendBufferRef sendBuffer = GSendBufferManager->Open(packetSize);
+#endif
 
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
 		header->size = packetSize;
 		header->id = pktId;
-
+				
+#if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
+		pkt.SerializeToArray(&header[1], dataSize);
+#else
 		ASSERT_CRASH(pkt.SerializeToArray(&header[1], dataSize));
+#endif
 
 		sendBuffer->Close(packetSize);
 		return sendBuffer;
