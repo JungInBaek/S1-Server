@@ -78,7 +78,7 @@ private:
 		header->id = pktId;
 				
 #if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
-		pkt.SerializeToArray(&header[1], dataSize)
+		pkt.SerializeToArray(&header[1], dataSize);
 #else
 		ASSERT_CRASH(pkt.SerializeToArray(&header[1], dataSize));
 #endif

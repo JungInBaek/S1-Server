@@ -12,7 +12,20 @@
 #endif
 
 #include "CorePch.h"
-#include "Enum.pb.h"
 
-using GameSessionRef = shared_ptr<class GameSession>;
-using PlayerRef = shared_ptr<class Player>;
+#include "Protocol.pb.h"
+#include "Struct.pb.h"
+#include "Enum.pb.h"
+#include "Utils.h"
+#include "ClientPacketHandler.h"
+#include "GameSession.h"
+
+
+USING_SHARED_PTR(GameSession);
+USING_SHARED_PTR(Player);
+USING_SHARED_PTR(Room);
+
+
+#define SEND_PACKET(pkt)													\
+	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(pkt);	\
+	session->Send(sendBuffer);
