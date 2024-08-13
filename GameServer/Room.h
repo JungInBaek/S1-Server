@@ -22,7 +22,11 @@ public:
 
 public:
 	bool HandleEnterPlayerLocked(PlayerRef player);
+	bool HandleLeavePlayerLocked(PlayerRef player);
+
+private:
 	bool EnterPlayer(PlayerRef player);
+	bool LeavePlayer(uint64 objectId);
 
 private:
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);

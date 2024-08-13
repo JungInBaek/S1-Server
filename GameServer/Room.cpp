@@ -62,13 +62,13 @@ bool Room::HandleEnterPlayerLocked(PlayerRef player)
 		}
 	}
 
-	// 접속 플레이어에게 기존 플레이어들의 소환 패킷 전송
+	// 접속 플레이어에게 기존 플레이어들의 스폰 패킷 전송
 	{
 		Protocol::S_SPAWN spawnPkt;
 
 		for (std::pair<const uint64, PlayerRef>& item : _players)
 		{
-			// 클라이언트에서 자기 자신의 소환 패킷 예외 처리
+			// 클라이언트에서 자기 자신의 스폰 패킷 예외 처리
 			Protocol::PlayerInfo* playerInfo = spawnPkt.add_players();
 			playerInfo->CopyFrom(*item.second->playerInfo);
 		}
@@ -80,7 +80,7 @@ bool Room::HandleEnterPlayerLocked(PlayerRef player)
 		}
 	}
 
-	// 기존에 입장한 플레이어들에게 새로운 플레이어의 입장 패킷 전송
+	// 기존에 입장한 플레이어들에게 새로운 플레이어의 스폰 패킷 전송
 	{
 		Protocol::S_SPAWN spawnPkt;
 
@@ -89,6 +89,47 @@ bool Room::HandleEnterPlayerLocked(PlayerRef player)
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
 		Broadcast(sendBuffer, player->playerInfo->object_id());
+	}
+
+	return success;
+}
+
+bool Room::HandleLeavePlayerLocked(PlayerRef player)
+{
+	if (player == nullptr)
+	{
+		return false;
+	}
+
+	WRITE_LOCK;
+
+	const uint64 objectId = player->playerInfo->object_id();
+	bool success = LeavePlayer(objectId);
+
+	// 퇴장 플레이어에게 퇴장 패킷 전송
+	{
+		Protocol::S_LEAVE_GAME leavePkt;
+
+		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(leavePkt);
+		if (GameSessionRef session = player->session.lock())
+		{
+			session->Send(sendBuffer);
+		}
+	}
+
+	// 남아있는 플레이어들에게 퇴장 플레이어의 디스폰 패킷 전송
+	{
+		Protocol::S_DESPAWN despawnPkt;
+		despawnPkt.add_object_ids(objectId);
+
+		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(despawnPkt);
+		Broadcast(sendBuffer, objectId);
+
+		// 퇴장 플레이어는 이미 room에서 빠져나간 상태라 Broadcast 불가
+		if (GameSessionRef session = player->session.lock())
+		{
+			session->Send(sendBuffer);
+		}
 	}
 
 	return success;
@@ -103,6 +144,21 @@ bool Room::EnterPlayer(PlayerRef player)
 
 	_players.insert(make_pair(player->playerInfo->object_id(), player));
 	player->room.store(static_pointer_cast<Room>(shared_from_this()));
+
+	return true;
+}
+
+bool Room::LeavePlayer(uint64 objectId)
+{
+	if (_players.find(objectId) == _players.end())
+	{
+		return false;
+	}
+	
+	PlayerRef player = _players[objectId];
+	player->room.store(weak_ptr<Room>());
+
+	_players.erase(objectId);
 
 	return true;
 }

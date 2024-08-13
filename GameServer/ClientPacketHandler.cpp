@@ -52,6 +52,22 @@ bool Handle_C_ENTER_GAME(PacketSessionRef& session, Protocol::C_ENTER_GAME& pkt)
 
 bool Handle_C_LEAVE_GAME(PacketSessionRef& session, Protocol::C_LEAVE_GAME& pkt)
 {
+	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
+	
+	PlayerRef player = gameSession->player.load();
+	if (player == nullptr)
+	{
+		return false;
+	}
+
+	RoomRef room = player->room.load().lock();
+	if (room == nullptr)
+	{
+		return false;
+	}
+
+	room->HandleLeavePlayerLocked(player);
+
 	return true;
 }
 
