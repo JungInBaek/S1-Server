@@ -21,10 +21,12 @@ public:
 	virtual ~Room();
 
 public:
-	bool HandleEnterPlayerLocked(PlayerRef player);
-	bool HandleLeavePlayerLocked(PlayerRef player);
+	bool HandleEnterPlayer(PlayerRef player);
+	bool HandleLeavePlayer(PlayerRef player);
 
-	void HandleMoveLocked(Protocol::C_MOVE pkt);
+	void HandleMove(Protocol::C_MOVE pkt);
+
+	RoomRef GetRoomRef();
 
 private:
 	bool EnterPlayer(PlayerRef player);
@@ -34,7 +36,6 @@ private:
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 
 public:
-	USE_LOCK;
 	unordered_map<uint64, PlayerRef> _players;
 };
 
