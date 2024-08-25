@@ -32,7 +32,7 @@ bool Room::HandleEnterPlayer(PlayerRef player)
 		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
 		playerInfo->CopyFrom(*player->objectInfo);
 		enterGamePkt.set_allocated_player(playerInfo);
-		//enterGamePkt.release_player();
+		//enterGamePkt.release_player();	// Protobuf에서 해제 해주길 원하지 않는다면 사용
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(enterGamePkt);
 		if (auto session = player->session.lock())
@@ -134,7 +134,7 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 	}
 
 	// 적용
-	PlayerRef player = dynamic_pointer_cast<Player>(_objects[objectId]);
+	PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
 	player->posInfo->CopyFrom(pkt.info());
 
 	// 이동
