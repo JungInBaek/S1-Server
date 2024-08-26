@@ -14,18 +14,24 @@ Room::~Room()
 {
 }
 
-bool Room::HandleEnterPlayer(PlayerRef player)
+bool Room::EnterRoom(ObjectRef object, bool randPos)
 {
-	bool success = AddObject(player);
+	bool success = AddObject(object);
 
 	// 랜덤 위치
-	player->posInfo->set_x(Utils::GetRandom(0.f, 500.f));
-	player->posInfo->set_y(Utils::GetRandom(0.f, 500.f));
-	player->posInfo->set_z(100.f);
-	player->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+	if (randPos)
+	{
+		object->posInfo->set_x(Utils::GetRandom(0.f, 500.f));
+		object->posInfo->set_y(Utils::GetRandom(0.f, 500.f));
+		object->posInfo->set_z(100.f);
+		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+	}
 
 	// 접속 플레이어에게 입장 패킷 전송
+	if (object->IsPlayer())
 	{
+		PlayerRef player = static_pointer_cast<Player>(object);
+
 		Protocol::S_ENTER_GAME enterGamePkt;
 		enterGamePkt.set_success(success);
 
@@ -41,21 +47,17 @@ bool Room::HandleEnterPlayer(PlayerRef player)
 		}
 	}
 
-	// 접속 플레이어에게 기존 플레이어들의 스폰 패킷 전송
+	// 접속 플레이어에게 기존 오브젝트들의 스폰 패킷 전송
+	if (object->IsPlayer())
 	{
-		Protocol::S_SPAWN spawnPkt;
+		PlayerRef player = static_pointer_cast<Player>(object);
 
+		Protocol::S_SPAWN spawnPkt;
 		for (std::pair<const uint64, ObjectRef>& item : _objects)
 		{
-			// TODO: Player만 추출 함수 추가
-			if (item.second->IsPlayer() == false)
-			{
-				continue;
-			}
-
-			// 클라이언트에서 자기 자신의 스폰 패킷 예외 처리
-			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
-			playerInfo->CopyFrom(*item.second->objectInfo);
+			// 자기 자신의 Player(Object)는 클라이언트에서 예외 처리
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+			objectInfo->CopyFrom(*item.second->objectInfo);
 		}
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
@@ -65,32 +67,35 @@ bool Room::HandleEnterPlayer(PlayerRef player)
 		}
 	}
 
-	// 기존에 입장한 플레이어들에게 새로운 플레이어의 스폰 패킷 전송
+	// 기존에 입장한 플레이어들에게 새로운 Object의 스폰 패킷 전송
 	{
 		Protocol::S_SPAWN spawnPkt;
 
-		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
-		playerInfo->CopyFrom(*player->objectInfo);
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		objectInfo->CopyFrom(*object->objectInfo);
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
-		Broadcast(sendBuffer, player->objectInfo->object_id());
+		Broadcast(sendBuffer, object->objectInfo->object_id());
 	}
 
 	return success;
 }
 
-bool Room::HandleLeavePlayer(PlayerRef player)
+bool Room::LeaveRoom(ObjectRef object)
 {
-	if (player == nullptr)
+	if (object == nullptr)
 	{
 		return false;
 	}
 
-	const uint64 objectId = player->posInfo->object_id();
+	const uint64 objectId = object->objectInfo->object_id();
 	bool success = RemoveObject(objectId);
 
 	// 퇴장 플레이어에게 퇴장 패킷 전송
+	if (object->IsPlayer())
 	{
+		PlayerRef player = static_pointer_cast<Player>(object);
+
 		Protocol::S_LEAVE_GAME leavePkt;
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(leavePkt);
@@ -109,13 +114,27 @@ bool Room::HandleLeavePlayer(PlayerRef player)
 		Broadcast(sendBuffer, objectId);
 
 		// 퇴장 플레이어는 이미 room에서 빠져나간 상태라 Broadcast 불가
-		if (GameSessionRef session = player->session.lock())
+		if (object->IsPlayer())
 		{
-			session->Send(sendBuffer);
+			PlayerRef player = static_pointer_cast<Player>(object);
+			if (GameSessionRef session = player->session.lock())
+			{
+				session->Send(sendBuffer);
+			}
 		}
 	}
 
 	return success;
+}
+
+bool Room::HandleEnterPlayer(PlayerRef player)
+{
+	return EnterRoom(player);
+}
+
+bool Room::HandleLeavePlayer(PlayerRef player)
+{
+	return LeaveRoom(player);
 }
 
 void Room::HandleMove(Protocol::C_MOVE pkt)
