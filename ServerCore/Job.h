@@ -26,6 +26,6 @@ public:
 		_callback();
 	}
 
-private:
+public:
 	CallbackType _callback;
 };

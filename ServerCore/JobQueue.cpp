@@ -8,14 +8,15 @@ void JobQueue::Push(JobRef job, bool pushOnly)
 	const int32 prevCount = _jobCount.fetch_add(1);
 	_jobs.Push(job);
 
-	if (pushOnly == true)
+	// 첫번째 Job을 넣은 쓰레드가 실행까지 담당
+	if (prevCount != 0)
 	{
 		return;
 	}
 
-	// 첫번째 Job을 넣은 쓰레드가 실행까지 담당
-	if (prevCount != 0)
+	if (pushOnly != false)
 	{
+		GGlobalQueue->Push(shared_from_this());
 		return;
 	}
 
@@ -44,13 +45,15 @@ void JobQueue::Execute()
 			jobs[i]->Execute();
 		}
 
+		// 일감이 0개면 종료
 		if (_jobCount.fetch_sub(jobCount) == jobCount)
 		{
 			LCurrentJobQueue = nullptr;
 			return;
 		}
 
-		uint64 now = ::GetTickCount64();
+		// 하나의 쓰레드가 오래 점유하면 다른 쓰레드에 넘기기
+		const uint64 now = ::GetTickCount64();
 		if (now >= LEndTickCount)
 		{
 			LCurrentJobQueue = nullptr;

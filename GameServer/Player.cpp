@@ -9,4 +9,6 @@ Player::Player()
 
 Player::~Player()
 {
+	cout << "~Player" << endl;
+	session = weak_ptr<GameSession>();
 }

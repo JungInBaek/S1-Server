@@ -17,7 +17,7 @@ public:
 		{
 			return T();
 		}
-		T item = _items.back();
+		T item = _items.front();
 		_items.pop();
 		return item;
 	}

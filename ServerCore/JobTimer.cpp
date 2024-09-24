@@ -14,7 +14,7 @@ void JobTimer::Reserve(uint64 tickAfter, weak_ptr<JobQueue> owner, JobRef job)
 
 void JobTimer::Distribute(uint64 now)
 {
-	// 동시에 쓰레드 하나만 통과
+	// 한 번에 쓰레드 하나만 통과
 	if (_distributing.exchange(true) == true)
 	{
 		return;

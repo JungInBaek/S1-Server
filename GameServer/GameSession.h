@@ -10,6 +10,7 @@ public:
 	virtual ~GameSession() override
 	{
 		cout << "~GameSession" << endl;
+		_player.store(shared_ptr<Player>());
 	}
 
 	virtual void OnConnected() override;
@@ -18,5 +19,5 @@ public:
 	virtual void OnSend(int32 len) override;
 
 public:
-	atomic<shared_ptr<Player>> player;
+	atomic<shared_ptr<Player>> _player;
 };

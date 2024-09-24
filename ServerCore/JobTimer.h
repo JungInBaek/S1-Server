@@ -13,12 +13,12 @@ struct TimerItem
 {
 	bool operator<(const TimerItem& other) const
 	{
-		return executeTick < other.executeTick;
+		return executeTick > other.executeTick;
 	}
 
 	bool operator>(const TimerItem& other) const
 	{
-		return executeTick > other.executeTick;
+		return executeTick < other.executeTick;
 	}
 
 	uint64 executeTick = 0;
@@ -33,12 +33,12 @@ struct TimerItem
 class JobTimer
 {
 public:
-	void Reserve(uint64 TickAfter, weak_ptr<JobQueue> owner, JobRef job);
+	void Reserve(uint64 tickAfter, weak_ptr<JobQueue> owner, JobRef job);
 	void Distribute(uint64 now);
 	void Clear();
 
 private:
 	USE_LOCK;
-	PriorityQueue<TimerItem, Vector<TimerItem>, greater<TimerItem>> _items;
+	PriorityQueue<TimerItem> _items;
 	Atomic<bool> _distributing = false;
 };

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ObjectUtils.h"
 #include "Player.h"
+#include "ObjectPool.h"
 
 
 // TODO: Bit Flag = [ObjectType][...][...][...]
@@ -11,12 +12,12 @@ PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session)
 {
 	const int64 newId = s_idGenerator.fetch_add(1);
 
-	PlayerRef player = MakeShared<Player>();
+	PlayerRef player = ObjectPool<Player>::MakeShared();
 	player->objectInfo->set_object_id(newId);
 	player->posInfo->set_object_id(newId);
 
 	player->session = session;
-	session->player.store(player);
+	session->_player.store(player);
 
 	return player;
 }

@@ -11,23 +11,20 @@ void GameSession::OnConnected()
 
 void GameSession::OnDisconnected()
 {
-	GSessionManager.Remove(static_pointer_cast<GameSession>(shared_from_this()));
-
-	if (player.load() == nullptr)
+	PlayerRef player = _player.load();
+	if (player == nullptr)
 	{
 		return;
 	}
+	cout << "objectId: " << player->objectInfo->object_id() << endl;
 
-	RoomRef room = player.load()->room.load().lock();
+	RoomRef room = _player.load()->room.load().lock();
 	if (room == nullptr)
 	{
 		return;
 	}
 
-	/*room->DoAsync(&Room::Leave, _currentPlayer);
-
-	_currentPlayer = nullptr;
-	_players.clear();*/
+	GRoom->DoAsync(&Room::HandleLeavePlayer, player);
 }
 
 void GameSession::OnRecvPacket(BYTE* buffer, int32 len)

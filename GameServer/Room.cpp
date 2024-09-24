@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Room.h"
 #include "Player.h"
+#include "GameSession.h"
+#include "GameSessionManager.h"
 
 
 RoomRef GRoom = make_shared<Room>();
@@ -90,6 +92,10 @@ bool Room::LeaveRoom(ObjectRef object)
 
 	const uint64 objectId = object->objectInfo->object_id();
 	bool success = RemoveObject(objectId);
+	if (!success)
+	{
+		return success;
+	}
 
 	// 퇴장 플레이어에게 퇴장 패킷 전송
 	if (object->IsPlayer())
@@ -120,6 +126,7 @@ bool Room::LeaveRoom(ObjectRef object)
 			if (GameSessionRef session = player->session.lock())
 			{
 				session->Send(sendBuffer);
+				GSessionManager.Remove(session);
 			}
 		}
 	}
@@ -197,13 +204,18 @@ bool Room::AddObject(ObjectRef object)
 
 bool Room::RemoveObject(uint64 objectId)
 {
+	cout << "Remove Object" << objectId << endl;
 	if (_objects.find(objectId) == _objects.end())
 	{
 		return false;
 	}
 	
 	ObjectRef object = _objects[objectId];
-	object->room.store(weak_ptr<Room>());
+	if (object->IsPlayer())
+	{
+		PlayerRef player = static_pointer_cast<Player>(object);
+		object->room.store(weak_ptr<Room>());
+	}
 
 	_objects.erase(objectId);
 

@@ -10,18 +10,21 @@ public:
 	void DoAsync(CallbackType&& callback)
 	{
 		Push(ObjectPool<Job>::MakeShared(std::move(callback)));
+		//Push(make_shared<Job>(std::move(callback)));
 	}
 
 	template<typename T, typename Ret, typename... Args>
-	void DoAsync(Ret(T::*memFunc)(Args...), Args... args)
+	void DoAsync(Ret(T::* memFunc)(Args...), Args... args)
 	{
 		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
+		//Push(make_shared<Job>(owner, memFunc, std::forward<Args>(args)...));
 		Push(ObjectPool<Job>::MakeShared(owner, memFunc, std::forward<Args>(args)...));
 	}
 
 	void DoTimer(uint64 tickAfter, CallbackType&& callback)
 	{
 		JobRef job = ObjectPool<Job>::MakeShared(std::move(callback));
+		//JobRef job = make_shared<Job>(std::move(callback));
 		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 	}
 
@@ -30,8 +33,11 @@ public:
 	{
 		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
 		JobRef job = ObjectPool<Job>::MakeShared(owner, memFunc, std::forward<Args>(args)...);
+		//JobRef job = make_shared<Job>(owner, memFunc, std::forward<Args>(args)...);
 		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 	}
+
+	void ClearJobs() { _jobs.Clear(); }
 
 public:
 	void Push(JobRef job, bool pushOnly = false);
