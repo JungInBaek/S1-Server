@@ -68,3 +68,8 @@ bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)
 
     return true;
 }
+
+bool Handle_S_FIRE(PacketSessionRef& session, Protocol::S_FIRE& pkt)
+{
+    return true;
+}

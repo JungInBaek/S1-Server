@@ -152,7 +152,7 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 		return;
 	}
 
-	// TODO: Move Packet Validate
+	// TODO: 이동 패킷 Validation (속도, 충돌 등)
 
 	if (_objects[objectId]->IsPlayer() == false)
 	{
@@ -173,6 +173,15 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(movePkt);
 		Broadcast(sendBuffer);
 	}
+}
+
+void Room::HandleFire(PlayerRef player)
+{
+	uint64 objectId = player->objectInfo->object_id();
+	Protocol::S_FIRE firePkt;
+	firePkt.add_object_ids(objectId);
+	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(firePkt);
+	Broadcast(sendBuffer, objectId);
 }
 
 void Room::UpdateTick()
