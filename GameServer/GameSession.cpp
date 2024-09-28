@@ -16,7 +16,6 @@ void GameSession::OnDisconnected()
 	{
 		return;
 	}
-	cout << "objectId: " << player->objectInfo->object_id() << endl;
 
 	RoomRef room = _player.load()->room.load().lock();
 	if (room == nullptr)

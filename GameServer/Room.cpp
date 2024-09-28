@@ -144,6 +144,31 @@ bool Room::HandleLeavePlayer(PlayerRef player)
 	return LeaveRoom(player);
 }
 
+void Room::HandleTurn(Protocol::C_TURN pkt)
+{
+	const uint64 objectId = pkt.object_id();
+	if (_objects.find(objectId) == _objects.end())
+	{
+		return;
+	}
+
+	if (_objects[objectId]->IsPlayer() == false)
+	{
+		return;
+	}
+
+	PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
+	float yaw = pkt.yaw();
+
+	{
+		Protocol::S_TURN turnPkt;
+		turnPkt.set_object_id(objectId);
+		turnPkt.set_yaw(yaw);
+		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(turnPkt);
+		Broadcast(sendBuffer, objectId);
+	}
+}
+
 void Room::HandleMove(Protocol::C_MOVE pkt)
 {
 	const uint64 objectId = pkt.info().object_id();
@@ -161,7 +186,7 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 
 	// 적용
 	PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
-	player->posInfo->CopyFrom(pkt.info());
+	//player->posInfo->CopyFrom(pkt.info());
 
 	// 이동
 	{
@@ -171,7 +196,7 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 		info->CopyFrom(pkt.info());
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(movePkt);
-		Broadcast(sendBuffer);
+		Broadcast(sendBuffer, objectId);
 	}
 }
 
@@ -179,14 +204,14 @@ void Room::HandleFire(PlayerRef player)
 {
 	uint64 objectId = player->objectInfo->object_id();
 	Protocol::S_FIRE firePkt;
-	firePkt.add_object_ids(objectId);
+	firePkt.set_object_id(objectId);
 	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(firePkt);
 	Broadcast(sendBuffer, objectId);
 }
 
 void Room::UpdateTick()
 {
-	cout << "Update Room" << endl;
+	std::cout << "Update Room" << endl;
 
 	// TODO
 
@@ -213,7 +238,6 @@ bool Room::AddObject(ObjectRef object)
 
 bool Room::RemoveObject(uint64 objectId)
 {
-	cout << "Remove Object" << objectId << endl;
 	if (_objects.find(objectId) == _objects.end())
 	{
 		return false;

@@ -15,6 +15,7 @@ public:
 public:
 	bool HandleEnterPlayer(PlayerRef player);
 	bool HandleLeavePlayer(PlayerRef player);
+	void HandleTurn(Protocol::C_TURN pkt);
 	void HandleMove(Protocol::C_MOVE pkt);
 	void HandleFire(PlayerRef player);
 
