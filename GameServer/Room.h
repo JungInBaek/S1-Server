@@ -18,6 +18,7 @@ public:
 	void HandleTurn(Protocol::C_TURN pkt);
 	void HandleMove(Protocol::C_MOVE pkt);
 	void HandleFire(PlayerRef player);
+	void HandleChangeItem(Protocol::C_CHANGE_ITEM pkt);
 
 public:
 	void UpdateTick();

@@ -209,6 +209,15 @@ void Room::HandleFire(PlayerRef player)
 	Broadcast(sendBuffer, objectId);
 }
 
+void Room::HandleChangeItem(Protocol::C_CHANGE_ITEM pkt)
+{
+	Protocol::S_CHANGE_ITEM changePkt;
+	changePkt.set_object_id(pkt.object_id());
+	changePkt.set_key(pkt.key());
+	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(changePkt);
+	Broadcast(sendBuffer, pkt.object_id());
+}
+
 void Room::UpdateTick()
 {
 	std::cout << "Update Room" << endl;

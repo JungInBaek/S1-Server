@@ -93,6 +93,11 @@ bool Handle_C_TURN(PacketSessionRef& session, Protocol::C_TURN& pkt)
 	return true;
 }
 
+bool Handle_C_JUMP(PacketSessionRef& session, Protocol::C_JUMP& pkt)
+{
+	return true;
+}
+
 bool Handle_C_MOVE(PacketSessionRef& session, Protocol::C_MOVE& pkt)
 {
 	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
@@ -138,6 +143,27 @@ bool Handle_C_FIRE(PacketSessionRef& session, Protocol::C_FIRE& pkt)
 	}
 
 	room->DoAsync(&Room::HandleFire, player);
+
+	return true;
+}
+
+bool Handle_C_CHANGE_ITEM(PacketSessionRef& session, Protocol::C_CHANGE_ITEM& pkt)
+{
+	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->_player.load();
+	if (player == nullptr)
+	{
+		return false;
+	}
+
+	RoomRef room = player->room.load().lock();
+	if (room == nullptr)
+	{
+		return false;
+	}
+
+	room->DoAsync(&Room::HandleChangeItem, pkt);
 
 	return true;
 }
