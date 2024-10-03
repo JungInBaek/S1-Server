@@ -66,6 +66,9 @@
     <ClCompile Include="Monster.cpp">
       <Filter>GameContents\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Enermy.cpp">
+      <Filter>GameContents\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -111,6 +114,9 @@
       <Filter>GameContents\Object</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>GameContents\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Enermy.h">
       <Filter>GameContents\Object</Filter>
     </ClInclude>
   </ItemGroup>

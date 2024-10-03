@@ -9,6 +9,9 @@ public:
 	virtual ~Room();
 
 public:
+	void Init();
+
+public:
 	bool EnterRoom(ObjectRef object, bool randPos = true);
 	bool LeaveRoom(ObjectRef object);
 

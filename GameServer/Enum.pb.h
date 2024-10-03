@@ -79,12 +79,13 @@ enum CreatureType : int {
   CREATURE_TYPE_PLAYER = 1,
   CREATURE_TYPE_NPC = 2,
   CREATURE_TYPE_MONSTER = 3,
+  CREATURE_TYPE_ENERMY = 4,
   CreatureType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   CreatureType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool CreatureType_IsValid(int value);
 constexpr CreatureType CreatureType_MIN = CREATURE_TYPE_NONE;
-constexpr CreatureType CreatureType_MAX = CREATURE_TYPE_MONSTER;
+constexpr CreatureType CreatureType_MAX = CREATURE_TYPE_ENERMY;
 constexpr int CreatureType_ARRAYSIZE = CreatureType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CreatureType_descriptor();
@@ -156,6 +157,35 @@ inline bool MoveState_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MoveState>(
     MoveState_descriptor(), name, value);
 }
+enum EnermyState : int {
+  ENERMY_STATE_NONE = 0,
+  ENERMY_STATE_IDLE = 1,
+  ENERMY_STATE_MOVE = 2,
+  ENERMY_STATE_ATTACK = 3,
+  ENERMY_STATE_DAMAGE = 4,
+  ENERMY_STATE_DIE = 5,
+  EnermyState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  EnermyState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool EnermyState_IsValid(int value);
+constexpr EnermyState EnermyState_MIN = ENERMY_STATE_NONE;
+constexpr EnermyState EnermyState_MAX = ENERMY_STATE_DIE;
+constexpr int EnermyState_ARRAYSIZE = EnermyState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EnermyState_descriptor();
+template<typename T>
+inline const std::string& EnermyState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EnermyState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EnermyState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EnermyState_descriptor(), enum_t_value);
+}
+inline bool EnermyState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EnermyState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EnermyState>(
+    EnermyState_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -197,6 +227,11 @@ template <> struct is_proto_enum< ::Protocol::MoveState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MoveState>() {
   return ::Protocol::MoveState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EnermyState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EnermyState>() {
+  return ::Protocol::EnermyState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

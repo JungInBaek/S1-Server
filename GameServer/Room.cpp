@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "Room.h"
 #include "Player.h"
+#include "Enermy.h"
 #include "GameSession.h"
 #include "GameSessionManager.h"
+#include "ObjectUtils.h"
 
 
 RoomRef GRoom = make_shared<Room>();
-
 
 Room::Room()
 {
@@ -14,6 +15,12 @@ Room::Room()
 
 Room::~Room()
 {
+}
+
+void Room::Init()
+{
+	EnermyRef enermy = ObjectUtils::CreateEnermy();
+	EnterRoom(enermy);
 }
 
 bool Room::EnterRoom(ObjectRef object, bool randPos)
@@ -38,9 +45,9 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 		Protocol::S_ENTER_GAME enterGamePkt;
 		enterGamePkt.set_success(success);
 
-		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
-		playerInfo->CopyFrom(*player->objectInfo);
-		enterGamePkt.set_allocated_player(playerInfo);
+		Protocol::ObjectInfo* objectInfo = new Protocol::ObjectInfo();
+		objectInfo->CopyFrom(*player->objectInfo);
+		enterGamePkt.set_allocated_player(objectInfo);
 		//enterGamePkt.release_player();	// Protobuf에서 해제 해주길 원하지 않는다면 사용
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(enterGamePkt);
@@ -56,11 +63,11 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 		PlayerRef player = static_pointer_cast<Player>(object);
 
 		Protocol::S_SPAWN spawnPkt;
-		for (std::pair<const uint64, ObjectRef>& item : _objects)
+		for (std::pair<const uint64, ObjectRef>& object : _objects)
 		{
 			// 자기 자신의 Player(Object)는 클라이언트에서 예외 처리
-			Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
-			objectInfo->CopyFrom(*item.second->objectInfo);
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_objects();
+			objectInfo->CopyFrom(*object.second->objectInfo);
 		}
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
@@ -74,7 +81,7 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 	{
 		Protocol::S_SPAWN spawnPkt;
 
-		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_objects();
 		objectInfo->CopyFrom(*object->objectInfo);
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
@@ -180,14 +187,12 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 
 	// TODO: 이동 패킷 Validation (속도, 충돌 등)
 
-	if (_objects[objectId]->IsPlayer() == false)
+	if (_objects[objectId]->IsPlayer())
 	{
-		return;
+		// 적용
+		PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
+		player->posInfo->CopyFrom(pkt.info());
 	}
-
-	// 적용
-	PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
-	//player->posInfo->CopyFrom(pkt.info());
 
 	// 이동
 	{
