@@ -72,6 +72,9 @@ extern C_LOGINDefaultTypeInternal _C_LOGIN_default_instance_;
 class C_MOVE;
 struct C_MOVEDefaultTypeInternal;
 extern C_MOVEDefaultTypeInternal _C_MOVE_default_instance_;
+class C_SNIPER_FIRE;
+struct C_SNIPER_FIREDefaultTypeInternal;
+extern C_SNIPER_FIREDefaultTypeInternal _C_SNIPER_FIRE_default_instance_;
 class C_TURN;
 struct C_TURNDefaultTypeInternal;
 extern C_TURNDefaultTypeInternal _C_TURN_default_instance_;
@@ -102,6 +105,9 @@ extern S_LOGINDefaultTypeInternal _S_LOGIN_default_instance_;
 class S_MOVE;
 struct S_MOVEDefaultTypeInternal;
 extern S_MOVEDefaultTypeInternal _S_MOVE_default_instance_;
+class S_SNIPER_FIRE;
+struct S_SNIPER_FIREDefaultTypeInternal;
+extern S_SNIPER_FIREDefaultTypeInternal _S_SNIPER_FIRE_default_instance_;
 class S_SPAWN;
 struct S_SPAWNDefaultTypeInternal;
 extern S_SPAWNDefaultTypeInternal _S_SPAWN_default_instance_;
@@ -118,6 +124,7 @@ template<> ::Protocol::C_JUMP* Arena::CreateMaybeMessage<::Protocol::C_JUMP>(Are
 template<> ::Protocol::C_LEAVE_GAME* Arena::CreateMaybeMessage<::Protocol::C_LEAVE_GAME>(Arena*);
 template<> ::Protocol::C_LOGIN* Arena::CreateMaybeMessage<::Protocol::C_LOGIN>(Arena*);
 template<> ::Protocol::C_MOVE* Arena::CreateMaybeMessage<::Protocol::C_MOVE>(Arena*);
+template<> ::Protocol::C_SNIPER_FIRE* Arena::CreateMaybeMessage<::Protocol::C_SNIPER_FIRE>(Arena*);
 template<> ::Protocol::C_TURN* Arena::CreateMaybeMessage<::Protocol::C_TURN>(Arena*);
 template<> ::Protocol::S_CHANGE_ITEM* Arena::CreateMaybeMessage<::Protocol::S_CHANGE_ITEM>(Arena*);
 template<> ::Protocol::S_CHAT* Arena::CreateMaybeMessage<::Protocol::S_CHAT>(Arena*);
@@ -128,6 +135,7 @@ template<> ::Protocol::S_JUMP* Arena::CreateMaybeMessage<::Protocol::S_JUMP>(Are
 template<> ::Protocol::S_LEAVE_GAME* Arena::CreateMaybeMessage<::Protocol::S_LEAVE_GAME>(Arena*);
 template<> ::Protocol::S_LOGIN* Arena::CreateMaybeMessage<::Protocol::S_LOGIN>(Arena*);
 template<> ::Protocol::S_MOVE* Arena::CreateMaybeMessage<::Protocol::S_MOVE>(Arena*);
+template<> ::Protocol::S_SNIPER_FIRE* Arena::CreateMaybeMessage<::Protocol::S_SNIPER_FIRE>(Arena*);
 template<> ::Protocol::S_SPAWN* Arena::CreateMaybeMessage<::Protocol::S_SPAWN>(Arena*);
 template<> ::Protocol::S_TURN* Arena::CreateMaybeMessage<::Protocol::S_TURN>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -2803,6 +2811,382 @@ class S_FIRE final :
 };
 // -------------------------------------------------------------------
 
+class C_SNIPER_FIRE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_SNIPER_FIRE) */ {
+ public:
+  inline C_SNIPER_FIRE() : C_SNIPER_FIRE(nullptr) {}
+  ~C_SNIPER_FIRE() override;
+  explicit PROTOBUF_CONSTEXPR C_SNIPER_FIRE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_SNIPER_FIRE(const C_SNIPER_FIRE& from);
+  C_SNIPER_FIRE(C_SNIPER_FIRE&& from) noexcept
+    : C_SNIPER_FIRE() {
+    *this = ::std::move(from);
+  }
+
+  inline C_SNIPER_FIRE& operator=(const C_SNIPER_FIRE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_SNIPER_FIRE& operator=(C_SNIPER_FIRE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_SNIPER_FIRE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_SNIPER_FIRE* internal_default_instance() {
+    return reinterpret_cast<const C_SNIPER_FIRE*>(
+               &_C_SNIPER_FIRE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(C_SNIPER_FIRE& a, C_SNIPER_FIRE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_SNIPER_FIRE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_SNIPER_FIRE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_SNIPER_FIRE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_SNIPER_FIRE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C_SNIPER_FIRE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C_SNIPER_FIRE& from) {
+    C_SNIPER_FIRE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C_SNIPER_FIRE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.C_SNIPER_FIRE";
+  }
+  protected:
+  explicit C_SNIPER_FIRE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStartFieldNumber = 2,
+    kEndFieldNumber = 3,
+    kObjectIdFieldNumber = 1,
+  };
+  // .Protocol.VectorInfo start = 2;
+  bool has_start() const;
+  private:
+  bool _internal_has_start() const;
+  public:
+  void clear_start();
+  const ::Protocol::VectorInfo& start() const;
+  PROTOBUF_NODISCARD ::Protocol::VectorInfo* release_start();
+  ::Protocol::VectorInfo* mutable_start();
+  void set_allocated_start(::Protocol::VectorInfo* start);
+  private:
+  const ::Protocol::VectorInfo& _internal_start() const;
+  ::Protocol::VectorInfo* _internal_mutable_start();
+  public:
+  void unsafe_arena_set_allocated_start(
+      ::Protocol::VectorInfo* start);
+  ::Protocol::VectorInfo* unsafe_arena_release_start();
+
+  // .Protocol.VectorInfo end = 3;
+  bool has_end() const;
+  private:
+  bool _internal_has_end() const;
+  public:
+  void clear_end();
+  const ::Protocol::VectorInfo& end() const;
+  PROTOBUF_NODISCARD ::Protocol::VectorInfo* release_end();
+  ::Protocol::VectorInfo* mutable_end();
+  void set_allocated_end(::Protocol::VectorInfo* end);
+  private:
+  const ::Protocol::VectorInfo& _internal_end() const;
+  ::Protocol::VectorInfo* _internal_mutable_end();
+  public:
+  void unsafe_arena_set_allocated_end(
+      ::Protocol::VectorInfo* end);
+  ::Protocol::VectorInfo* unsafe_arena_release_end();
+
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.C_SNIPER_FIRE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::Protocol::VectorInfo* start_;
+    ::Protocol::VectorInfo* end_;
+    uint64_t object_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S_SNIPER_FIRE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SNIPER_FIRE) */ {
+ public:
+  inline S_SNIPER_FIRE() : S_SNIPER_FIRE(nullptr) {}
+  ~S_SNIPER_FIRE() override;
+  explicit PROTOBUF_CONSTEXPR S_SNIPER_FIRE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_SNIPER_FIRE(const S_SNIPER_FIRE& from);
+  S_SNIPER_FIRE(S_SNIPER_FIRE&& from) noexcept
+    : S_SNIPER_FIRE() {
+    *this = ::std::move(from);
+  }
+
+  inline S_SNIPER_FIRE& operator=(const S_SNIPER_FIRE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_SNIPER_FIRE& operator=(S_SNIPER_FIRE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_SNIPER_FIRE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_SNIPER_FIRE* internal_default_instance() {
+    return reinterpret_cast<const S_SNIPER_FIRE*>(
+               &_S_SNIPER_FIRE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  friend void swap(S_SNIPER_FIRE& a, S_SNIPER_FIRE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_SNIPER_FIRE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_SNIPER_FIRE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_SNIPER_FIRE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_SNIPER_FIRE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_SNIPER_FIRE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_SNIPER_FIRE& from) {
+    S_SNIPER_FIRE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_SNIPER_FIRE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.S_SNIPER_FIRE";
+  }
+  protected:
+  explicit S_SNIPER_FIRE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStartFieldNumber = 2,
+    kEndFieldNumber = 3,
+    kObjectIdFieldNumber = 1,
+  };
+  // .Protocol.VectorInfo start = 2;
+  bool has_start() const;
+  private:
+  bool _internal_has_start() const;
+  public:
+  void clear_start();
+  const ::Protocol::VectorInfo& start() const;
+  PROTOBUF_NODISCARD ::Protocol::VectorInfo* release_start();
+  ::Protocol::VectorInfo* mutable_start();
+  void set_allocated_start(::Protocol::VectorInfo* start);
+  private:
+  const ::Protocol::VectorInfo& _internal_start() const;
+  ::Protocol::VectorInfo* _internal_mutable_start();
+  public:
+  void unsafe_arena_set_allocated_start(
+      ::Protocol::VectorInfo* start);
+  ::Protocol::VectorInfo* unsafe_arena_release_start();
+
+  // .Protocol.VectorInfo end = 3;
+  bool has_end() const;
+  private:
+  bool _internal_has_end() const;
+  public:
+  void clear_end();
+  const ::Protocol::VectorInfo& end() const;
+  PROTOBUF_NODISCARD ::Protocol::VectorInfo* release_end();
+  ::Protocol::VectorInfo* mutable_end();
+  void set_allocated_end(::Protocol::VectorInfo* end);
+  private:
+  const ::Protocol::VectorInfo& _internal_end() const;
+  ::Protocol::VectorInfo* _internal_mutable_end();
+  public:
+  void unsafe_arena_set_allocated_end(
+      ::Protocol::VectorInfo* end);
+  ::Protocol::VectorInfo* unsafe_arena_release_end();
+
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.S_SNIPER_FIRE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::Protocol::VectorInfo* start_;
+    ::Protocol::VectorInfo* end_;
+    uint64_t object_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
 class C_CHANGE_ITEM final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_CHANGE_ITEM) */ {
  public:
@@ -2851,7 +3235,7 @@ class C_CHANGE_ITEM final :
                &_C_CHANGE_ITEM_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(C_CHANGE_ITEM& a, C_CHANGE_ITEM& b) {
     a.Swap(&b);
@@ -3010,7 +3394,7 @@ class S_CHANGE_ITEM final :
                &_S_CHANGE_ITEM_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(S_CHANGE_ITEM& a, S_CHANGE_ITEM& b) {
     a.Swap(&b);
@@ -3896,6 +4280,394 @@ inline void S_FIRE::set_object_id(uint64_t value) {
 
 // -------------------------------------------------------------------
 
+// C_SNIPER_FIRE
+
+// uint64 object_id = 1;
+inline void C_SNIPER_FIRE::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t C_SNIPER_FIRE::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t C_SNIPER_FIRE::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_SNIPER_FIRE.object_id)
+  return _internal_object_id();
+}
+inline void C_SNIPER_FIRE::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void C_SNIPER_FIRE::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_SNIPER_FIRE.object_id)
+}
+
+// .Protocol.VectorInfo start = 2;
+inline bool C_SNIPER_FIRE::_internal_has_start() const {
+  return this != internal_default_instance() && _impl_.start_ != nullptr;
+}
+inline bool C_SNIPER_FIRE::has_start() const {
+  return _internal_has_start();
+}
+inline const ::Protocol::VectorInfo& C_SNIPER_FIRE::_internal_start() const {
+  const ::Protocol::VectorInfo* p = _impl_.start_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::VectorInfo&>(
+      ::Protocol::_VectorInfo_default_instance_);
+}
+inline const ::Protocol::VectorInfo& C_SNIPER_FIRE::start() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_SNIPER_FIRE.start)
+  return _internal_start();
+}
+inline void C_SNIPER_FIRE::unsafe_arena_set_allocated_start(
+    ::Protocol::VectorInfo* start) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.start_);
+  }
+  _impl_.start_ = start;
+  if (start) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SNIPER_FIRE.start)
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::release_start() {
+  
+  ::Protocol::VectorInfo* temp = _impl_.start_;
+  _impl_.start_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::unsafe_arena_release_start() {
+  // @@protoc_insertion_point(field_release:Protocol.C_SNIPER_FIRE.start)
+  
+  ::Protocol::VectorInfo* temp = _impl_.start_;
+  _impl_.start_ = nullptr;
+  return temp;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::_internal_mutable_start() {
+  
+  if (_impl_.start_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::VectorInfo>(GetArenaForAllocation());
+    _impl_.start_ = p;
+  }
+  return _impl_.start_;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::mutable_start() {
+  ::Protocol::VectorInfo* _msg = _internal_mutable_start();
+  // @@protoc_insertion_point(field_mutable:Protocol.C_SNIPER_FIRE.start)
+  return _msg;
+}
+inline void C_SNIPER_FIRE::set_allocated_start(::Protocol::VectorInfo* start) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.start_);
+  }
+  if (start) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(start));
+    if (message_arena != submessage_arena) {
+      start = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, start, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.start_ = start;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SNIPER_FIRE.start)
+}
+
+// .Protocol.VectorInfo end = 3;
+inline bool C_SNIPER_FIRE::_internal_has_end() const {
+  return this != internal_default_instance() && _impl_.end_ != nullptr;
+}
+inline bool C_SNIPER_FIRE::has_end() const {
+  return _internal_has_end();
+}
+inline const ::Protocol::VectorInfo& C_SNIPER_FIRE::_internal_end() const {
+  const ::Protocol::VectorInfo* p = _impl_.end_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::VectorInfo&>(
+      ::Protocol::_VectorInfo_default_instance_);
+}
+inline const ::Protocol::VectorInfo& C_SNIPER_FIRE::end() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_SNIPER_FIRE.end)
+  return _internal_end();
+}
+inline void C_SNIPER_FIRE::unsafe_arena_set_allocated_end(
+    ::Protocol::VectorInfo* end) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.end_);
+  }
+  _impl_.end_ = end;
+  if (end) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SNIPER_FIRE.end)
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::release_end() {
+  
+  ::Protocol::VectorInfo* temp = _impl_.end_;
+  _impl_.end_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::unsafe_arena_release_end() {
+  // @@protoc_insertion_point(field_release:Protocol.C_SNIPER_FIRE.end)
+  
+  ::Protocol::VectorInfo* temp = _impl_.end_;
+  _impl_.end_ = nullptr;
+  return temp;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::_internal_mutable_end() {
+  
+  if (_impl_.end_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::VectorInfo>(GetArenaForAllocation());
+    _impl_.end_ = p;
+  }
+  return _impl_.end_;
+}
+inline ::Protocol::VectorInfo* C_SNIPER_FIRE::mutable_end() {
+  ::Protocol::VectorInfo* _msg = _internal_mutable_end();
+  // @@protoc_insertion_point(field_mutable:Protocol.C_SNIPER_FIRE.end)
+  return _msg;
+}
+inline void C_SNIPER_FIRE::set_allocated_end(::Protocol::VectorInfo* end) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.end_);
+  }
+  if (end) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(end));
+    if (message_arena != submessage_arena) {
+      end = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, end, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.end_ = end;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SNIPER_FIRE.end)
+}
+
+// -------------------------------------------------------------------
+
+// S_SNIPER_FIRE
+
+// uint64 object_id = 1;
+inline void S_SNIPER_FIRE::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t S_SNIPER_FIRE::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t S_SNIPER_FIRE::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SNIPER_FIRE.object_id)
+  return _internal_object_id();
+}
+inline void S_SNIPER_FIRE::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void S_SNIPER_FIRE::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SNIPER_FIRE.object_id)
+}
+
+// .Protocol.VectorInfo start = 2;
+inline bool S_SNIPER_FIRE::_internal_has_start() const {
+  return this != internal_default_instance() && _impl_.start_ != nullptr;
+}
+inline bool S_SNIPER_FIRE::has_start() const {
+  return _internal_has_start();
+}
+inline const ::Protocol::VectorInfo& S_SNIPER_FIRE::_internal_start() const {
+  const ::Protocol::VectorInfo* p = _impl_.start_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::VectorInfo&>(
+      ::Protocol::_VectorInfo_default_instance_);
+}
+inline const ::Protocol::VectorInfo& S_SNIPER_FIRE::start() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SNIPER_FIRE.start)
+  return _internal_start();
+}
+inline void S_SNIPER_FIRE::unsafe_arena_set_allocated_start(
+    ::Protocol::VectorInfo* start) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.start_);
+  }
+  _impl_.start_ = start;
+  if (start) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SNIPER_FIRE.start)
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::release_start() {
+  
+  ::Protocol::VectorInfo* temp = _impl_.start_;
+  _impl_.start_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::unsafe_arena_release_start() {
+  // @@protoc_insertion_point(field_release:Protocol.S_SNIPER_FIRE.start)
+  
+  ::Protocol::VectorInfo* temp = _impl_.start_;
+  _impl_.start_ = nullptr;
+  return temp;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::_internal_mutable_start() {
+  
+  if (_impl_.start_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::VectorInfo>(GetArenaForAllocation());
+    _impl_.start_ = p;
+  }
+  return _impl_.start_;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::mutable_start() {
+  ::Protocol::VectorInfo* _msg = _internal_mutable_start();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SNIPER_FIRE.start)
+  return _msg;
+}
+inline void S_SNIPER_FIRE::set_allocated_start(::Protocol::VectorInfo* start) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.start_);
+  }
+  if (start) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(start));
+    if (message_arena != submessage_arena) {
+      start = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, start, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.start_ = start;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SNIPER_FIRE.start)
+}
+
+// .Protocol.VectorInfo end = 3;
+inline bool S_SNIPER_FIRE::_internal_has_end() const {
+  return this != internal_default_instance() && _impl_.end_ != nullptr;
+}
+inline bool S_SNIPER_FIRE::has_end() const {
+  return _internal_has_end();
+}
+inline const ::Protocol::VectorInfo& S_SNIPER_FIRE::_internal_end() const {
+  const ::Protocol::VectorInfo* p = _impl_.end_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::VectorInfo&>(
+      ::Protocol::_VectorInfo_default_instance_);
+}
+inline const ::Protocol::VectorInfo& S_SNIPER_FIRE::end() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SNIPER_FIRE.end)
+  return _internal_end();
+}
+inline void S_SNIPER_FIRE::unsafe_arena_set_allocated_end(
+    ::Protocol::VectorInfo* end) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.end_);
+  }
+  _impl_.end_ = end;
+  if (end) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SNIPER_FIRE.end)
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::release_end() {
+  
+  ::Protocol::VectorInfo* temp = _impl_.end_;
+  _impl_.end_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::unsafe_arena_release_end() {
+  // @@protoc_insertion_point(field_release:Protocol.S_SNIPER_FIRE.end)
+  
+  ::Protocol::VectorInfo* temp = _impl_.end_;
+  _impl_.end_ = nullptr;
+  return temp;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::_internal_mutable_end() {
+  
+  if (_impl_.end_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::VectorInfo>(GetArenaForAllocation());
+    _impl_.end_ = p;
+  }
+  return _impl_.end_;
+}
+inline ::Protocol::VectorInfo* S_SNIPER_FIRE::mutable_end() {
+  ::Protocol::VectorInfo* _msg = _internal_mutable_end();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SNIPER_FIRE.end)
+  return _msg;
+}
+inline void S_SNIPER_FIRE::set_allocated_end(::Protocol::VectorInfo* end) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.end_);
+  }
+  if (end) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(end));
+    if (message_arena != submessage_arena) {
+      end = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, end, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.end_ = end;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SNIPER_FIRE.end)
+}
+
+// -------------------------------------------------------------------
+
 // C_CHANGE_ITEM
 
 // uint64 object_id = 1;
@@ -3985,6 +4757,10 @@ inline void S_CHANGE_ITEM::set_key(uint32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

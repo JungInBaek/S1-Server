@@ -28,8 +28,10 @@ enum : uint16
 	PKT_S_CHAT = 1015,
 	PKT_C_FIRE = 1016,
 	PKT_S_FIRE = 1017,
-	PKT_C_CHANGE_ITEM = 1018,
-	PKT_S_CHANGE_ITEM = 1019,
+	PKT_C_SNIPER_FIRE = 1018,
+	PKT_S_SNIPER_FIRE = 1019,
+	PKT_C_CHANGE_ITEM = 1020,
+	PKT_S_CHANGE_ITEM = 1021,
 };
 
 // Custom Handler
@@ -42,6 +44,7 @@ bool Handle_C_JUMP(PacketSessionRef& session, Protocol::C_JUMP& pkt);
 bool Handle_C_MOVE(PacketSessionRef& session, Protocol::C_MOVE& pkt);
 bool Handle_C_CHAT(PacketSessionRef& session, Protocol::C_CHAT& pkt);
 bool Handle_C_FIRE(PacketSessionRef& session, Protocol::C_FIRE& pkt);
+bool Handle_C_SNIPER_FIRE(PacketSessionRef& session, Protocol::C_SNIPER_FIRE& pkt);
 bool Handle_C_CHANGE_ITEM(PacketSessionRef& session, Protocol::C_CHANGE_ITEM& pkt);
 
 
@@ -62,6 +65,7 @@ public:
 		GPacketHandler[PKT_C_MOVE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_MOVE>(Handle_C_MOVE, session, buffer, len); };
 		GPacketHandler[PKT_C_CHAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_CHAT>(Handle_C_CHAT, session, buffer, len); };
 		GPacketHandler[PKT_C_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_FIRE>(Handle_C_FIRE, session, buffer, len); };
+		GPacketHandler[PKT_C_SNIPER_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_SNIPER_FIRE>(Handle_C_SNIPER_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_C_CHANGE_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_CHANGE_ITEM>(Handle_C_CHANGE_ITEM, session, buffer, len); };
 	}
 
@@ -80,6 +84,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_MOVE& pkt) { return MakeSendBuffer(pkt, PKT_S_MOVE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_S_CHAT); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_S_FIRE); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_SNIPER_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_S_SNIPER_FIRE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHANGE_ITEM& pkt) { return MakeSendBuffer(pkt, PKT_S_CHANGE_ITEM); }
 
 private:

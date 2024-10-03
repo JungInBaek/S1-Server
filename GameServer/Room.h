@@ -19,6 +19,7 @@ public:
 	void HandleMove(Protocol::C_MOVE pkt);
 	void HandleFire(PlayerRef player);
 	void HandleChangeItem(Protocol::C_CHANGE_ITEM pkt);
+	void HandleSniperFire(Protocol::C_SNIPER_FIRE pkt);
 
 public:
 	void UpdateTick();

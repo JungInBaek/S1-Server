@@ -23,9 +23,10 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 	// 랜덤 위치
 	if (randPos)
 	{
-		object->posInfo->set_x(Utils::GetRandom(0.f, 500.f));
-		object->posInfo->set_y(Utils::GetRandom(0.f, 500.f));
-		object->posInfo->set_z(100.f);
+		Protocol::VectorInfo* vectorInfo = object->posInfo->mutable_vector_info();
+		vectorInfo->set_x(Utils::GetRandom(0.f, 500.f));
+		vectorInfo->set_y(Utils::GetRandom(0.f, 500.f));
+		vectorInfo->set_z(100.f);
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
 	}
 
@@ -215,6 +216,16 @@ void Room::HandleChangeItem(Protocol::C_CHANGE_ITEM pkt)
 	changePkt.set_object_id(pkt.object_id());
 	changePkt.set_key(pkt.key());
 	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(changePkt);
+	Broadcast(sendBuffer, pkt.object_id());
+}
+
+void Room::HandleSniperFire(Protocol::C_SNIPER_FIRE pkt)
+{
+	Protocol::S_SNIPER_FIRE firePkt;
+	firePkt.set_object_id(pkt.object_id());
+	firePkt.mutable_start()->CopyFrom(pkt.start());
+	firePkt.mutable_end()->CopyFrom(pkt.end());
+	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(firePkt);
 	Broadcast(sendBuffer, pkt.object_id());
 }
 

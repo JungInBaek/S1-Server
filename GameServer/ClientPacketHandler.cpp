@@ -27,10 +27,11 @@ bool Handle_C_LOGIN(PacketSessionRef& session, Protocol::C_LOGIN& pkt)
 	{
 		Protocol::ObjectInfo* player = loginPkt.add_players();
 		Protocol::PosInfo* posInfo = player->mutable_pos_info();
-		posInfo->set_x(Utils::GetRandom(0.f, 100.f));
-		posInfo->set_y(Utils::GetRandom(0.f, 100.f));
-		posInfo->set_z(Utils::GetRandom(0.f, 100.f));
 		posInfo->set_yaw(Utils::GetRandom(0.f, 45.f));
+		Protocol::VectorInfo* vectorInfo = posInfo->mutable_vector_info();
+		vectorInfo->set_x(Utils::GetRandom(0.f, 100.f));
+		vectorInfo->set_y(Utils::GetRandom(0.f, 100.f));
+		vectorInfo->set_z(Utils::GetRandom(0.f, 100.f));
 	}
 
 	loginPkt.set_success(true);
@@ -143,6 +144,27 @@ bool Handle_C_FIRE(PacketSessionRef& session, Protocol::C_FIRE& pkt)
 	}
 
 	room->DoAsync(&Room::HandleFire, player);
+
+	return true;
+}
+
+bool Handle_C_SNIPER_FIRE(PacketSessionRef& session, Protocol::C_SNIPER_FIRE& pkt)
+{
+	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->_player.load();
+	if (player == nullptr)
+	{
+		return false;
+	}
+
+	RoomRef room = player->room.load().lock();
+	if (room == nullptr)
+	{
+		return false;
+	}
+
+	room->DoAsync(&Room::HandleSniperFire, pkt);
 
 	return true;
 }
