@@ -31,8 +31,8 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 	if (randPos)
 	{
 		Protocol::VectorInfo* vectorInfo = object->posInfo->mutable_vector_info();
-		vectorInfo->set_x(Utils::GetRandom(0.f, 500.f));
-		vectorInfo->set_y(Utils::GetRandom(0.f, 500.f));
+		vectorInfo->set_x(Utils::GetRandom(-500.0f, 500.f));
+		vectorInfo->set_y(Utils::GetRandom(-500.0f, 500.f));
 		vectorInfo->set_z(100.f);
 		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
 	}
