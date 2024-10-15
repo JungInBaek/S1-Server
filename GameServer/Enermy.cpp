@@ -4,9 +4,10 @@
 
 Enermy::Enermy()
 {
-	
+	_isEnermy = true;
 }
 
 Enermy::~Enermy()
 {
+	cout << "~Enermy" << endl;
 }

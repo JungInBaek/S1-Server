@@ -38,19 +38,23 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "_MONSTER\020\003\022\030\n\024CREATURE_TYPE_ENERMY\020\004*<\n\n"
   "PlayerType\022\024\n\020PLAYER_TYPE_NONE\020\000\022\030\n\024PLAY"
   "ER_TYPE_SURVIVOR\020\001*:\n\nEnermyType\022\024\n\020ENER"
-  "MY_TYPE_NONE\020\000\022\026\n\022ENERMY_TYPE_ZOMBIE\020\001*t"
-  "\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n\017MOVE"
-  "_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN\020\002\022\023\n\017MOV"
-  "E_STATE_JUMP\020\003\022\024\n\020MOVE_STATE_SKILL\020\004*\232\001\n"
-  "\013EnermyState\022\025\n\021ENERMY_STATE_NONE\020\000\022\025\n\021E"
-  "NERMY_STATE_IDLE\020\001\022\025\n\021ENERMY_STATE_MOVE\020"
-  "\002\022\027\n\023ENERMY_STATE_ATTACK\020\003\022\027\n\023ENERMY_STA"
-  "TE_DAMAGE\020\004\022\024\n\020ENERMY_STATE_DIE\020\005b\006proto"
-  "3"
+  "MY_TYPE_NONE\020\000\022\026\n\022ENERMY_TYPE_ZOMBIE\020\001*\263"
+  "\002\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n\017MOV"
+  "E_STATE_IDLE\020\001\022\026\n\022MOVE_STATE_FORWARD\020\002\022\027"
+  "\n\023MOVE_STATE_BACKWARD\020\003\022\024\n\020MOVE_STATE_RI"
+  "GHT\020\004\022\023\n\017MOVE_STATE_LEFT\020\005\022\034\n\030MOVE_STATE"
+  "_RIGHT_FORWARD\020\006\022\033\n\027MOVE_STATE_LEFT_FORW"
+  "ARD\020\007\022\035\n\031MOVE_STATE_RIGHT_BACKWARD\020\010\022\034\n\030"
+  "MOVE_STATE_LEFT_BACKWARD\020\t\022\023\n\017MOVE_STATE"
+  "_JUMP\020\n\022\023\n\017MOVE_STATE_FIRE\020\013*\232\001\n\013EnermyS"
+  "tate\022\025\n\021ENERMY_STATE_NONE\020\000\022\025\n\021ENERMY_ST"
+  "ATE_IDLE\020\001\022\025\n\021ENERMY_STATE_MOVE\020\002\022\027\n\023ENE"
+  "RMY_STATE_ATTACK\020\003\022\027\n\023ENERMY_STATE_DAMAG"
+  "E\020\004\022\024\n\020ENERMY_STATE_DIE\020\005b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 681, descriptor_table_protodef_Enum_2eproto,
+    false, false, 873, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -136,6 +140,13 @@ bool MoveState_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;

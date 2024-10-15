@@ -155,15 +155,22 @@ inline bool EnermyType_Parse(
 enum MoveState : int {
   MOVE_STATE_NONE = 0,
   MOVE_STATE_IDLE = 1,
-  MOVE_STATE_RUN = 2,
-  MOVE_STATE_JUMP = 3,
-  MOVE_STATE_SKILL = 4,
+  MOVE_STATE_FORWARD = 2,
+  MOVE_STATE_BACKWARD = 3,
+  MOVE_STATE_RIGHT = 4,
+  MOVE_STATE_LEFT = 5,
+  MOVE_STATE_RIGHT_FORWARD = 6,
+  MOVE_STATE_LEFT_FORWARD = 7,
+  MOVE_STATE_RIGHT_BACKWARD = 8,
+  MOVE_STATE_LEFT_BACKWARD = 9,
+  MOVE_STATE_JUMP = 10,
+  MOVE_STATE_FIRE = 11,
   MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool MoveState_IsValid(int value);
 constexpr MoveState MoveState_MIN = MOVE_STATE_NONE;
-constexpr MoveState MoveState_MAX = MOVE_STATE_SKILL;
+constexpr MoveState MoveState_MAX = MOVE_STATE_FIRE;
 constexpr int MoveState_ARRAYSIZE = MoveState_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor();

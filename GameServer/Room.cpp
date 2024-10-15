@@ -238,7 +238,30 @@ void Room::UpdateTick()
 {
 	std::cout << "Update Room" << endl;
 
-	// TODO
+	// TODO: 게임 로직
+	// Enermy 로직
+	for (std::pair<const uint64, ObjectRef>& object : _objects)
+	{
+		if (object.second->IsEnermy())
+		{
+			EnermyRef enermy = static_pointer_cast<Enermy>(object.second);
+
+			/*float min = FLT_MAX;
+
+			TArray<AActor*, FDefaultAllocator> actors;
+			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AS1Player::StaticClass(), actors);
+			for (AActor* actor : actors)
+			{
+				AS1Player* player = Cast<AS1Player>(actor);
+				float distance = FVector::Distance(player->GetActorLocation(), me->GetActorLocation());
+				if (min > distance)
+				{
+					min = distance;
+					target = player;
+				}
+			}*/
+		}
+	}
 
 	DoTimer(100, &Room::UpdateTick);
 }
