@@ -7,9 +7,10 @@ class Room : public JobQueue
 public:
 	Room();
 	virtual ~Room();
-
+	
 public:
 	void Init();
+	void UpdateTick();
 
 public:
 	bool EnterRoom(ObjectRef object, bool randPos = true);
@@ -25,8 +26,6 @@ public:
 	void HandleSniperFire(Protocol::C_SNIPER_FIRE pkt);
 
 public:
-	void UpdateTick();
-
 	RoomRef GetRoomRef();
 
 private:

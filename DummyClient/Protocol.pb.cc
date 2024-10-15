@@ -98,6 +98,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR S_SPAWN::S_SPAWN(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.objects_)*/{}
+  , /*decltype(_impl_.creatures_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_SPAWNDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_SPAWNDefaultTypeInternal()
@@ -365,6 +366,7 @@ const uint32_t TableStruct_Protocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SPAWN, _impl_.objects_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_SPAWN, _impl_.creatures_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DESPAWN, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -487,21 +489,21 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 29, -1, -1, sizeof(::Protocol::C_LEAVE_GAME)},
   { 35, -1, -1, sizeof(::Protocol::S_LEAVE_GAME)},
   { 41, -1, -1, sizeof(::Protocol::S_SPAWN)},
-  { 48, -1, -1, sizeof(::Protocol::S_DESPAWN)},
-  { 55, -1, -1, sizeof(::Protocol::C_TURN)},
-  { 63, -1, -1, sizeof(::Protocol::S_TURN)},
-  { 71, -1, -1, sizeof(::Protocol::C_JUMP)},
-  { 78, -1, -1, sizeof(::Protocol::S_JUMP)},
-  { 85, -1, -1, sizeof(::Protocol::C_MOVE)},
-  { 92, -1, -1, sizeof(::Protocol::S_MOVE)},
-  { 99, -1, -1, sizeof(::Protocol::C_CHAT)},
-  { 106, -1, -1, sizeof(::Protocol::S_CHAT)},
-  { 114, -1, -1, sizeof(::Protocol::C_FIRE)},
-  { 120, -1, -1, sizeof(::Protocol::S_FIRE)},
-  { 127, -1, -1, sizeof(::Protocol::C_SNIPER_FIRE)},
-  { 136, -1, -1, sizeof(::Protocol::S_SNIPER_FIRE)},
-  { 145, -1, -1, sizeof(::Protocol::C_CHANGE_ITEM)},
-  { 153, -1, -1, sizeof(::Protocol::S_CHANGE_ITEM)},
+  { 49, -1, -1, sizeof(::Protocol::S_DESPAWN)},
+  { 56, -1, -1, sizeof(::Protocol::C_TURN)},
+  { 64, -1, -1, sizeof(::Protocol::S_TURN)},
+  { 72, -1, -1, sizeof(::Protocol::C_JUMP)},
+  { 79, -1, -1, sizeof(::Protocol::S_JUMP)},
+  { 86, -1, -1, sizeof(::Protocol::C_MOVE)},
+  { 93, -1, -1, sizeof(::Protocol::S_MOVE)},
+  { 100, -1, -1, sizeof(::Protocol::C_CHAT)},
+  { 107, -1, -1, sizeof(::Protocol::S_CHAT)},
+  { 115, -1, -1, sizeof(::Protocol::C_FIRE)},
+  { 121, -1, -1, sizeof(::Protocol::S_FIRE)},
+  { 128, -1, -1, sizeof(::Protocol::C_SNIPER_FIRE)},
+  { 137, -1, -1, sizeof(::Protocol::S_SNIPER_FIRE)},
+  { 146, -1, -1, sizeof(::Protocol::C_CHANGE_ITEM)},
+  { 154, -1, -1, sizeof(::Protocol::S_CHANGE_ITEM)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -536,26 +538,27 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "ObjectInfo\"#\n\014C_ENTER_GAME\022\023\n\013playerInde"
   "x\030\001 \001(\004\"E\n\014S_ENTER_GAME\022\017\n\007success\030\001 \001(\010"
   "\022$\n\006player\030\002 \001(\0132\024.Protocol.ObjectInfo\"\016"
-  "\n\014C_LEAVE_GAME\"\016\n\014S_LEAVE_GAME\"0\n\007S_SPAW"
+  "\n\014C_LEAVE_GAME\"\016\n\014S_LEAVE_GAME\"[\n\007S_SPAW"
   "N\022%\n\007objects\030\001 \003(\0132\024.Protocol.ObjectInfo"
-  "\"\037\n\tS_DESPAWN\022\022\n\nobject_ids\030\001 \003(\004\"(\n\006C_T"
-  "URN\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003yaw\030\002 \001(\002\"(\n\006S"
-  "_TURN\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003yaw\030\002 \001(\002\"\033\n"
-  "\006C_JUMP\022\021\n\tobject_id\030\001 \001(\004\"\033\n\006S_JUMP\022\021\n\t"
-  "object_id\030\001 \001(\004\")\n\006C_MOVE\022\037\n\004info\030\001 \001(\0132"
-  "\021.Protocol.PosInfo\")\n\006S_MOVE\022\037\n\004info\030\001 \001"
-  "(\0132\021.Protocol.PosInfo\"\025\n\006C_CHAT\022\013\n\003msg\030\001"
-  " \001(\t\"\'\n\006S_CHAT\022\020\n\010playerId\030\001 \001(\004\022\013\n\003msg\030"
-  "\002 \001(\t\"\010\n\006C_FIRE\"\033\n\006S_FIRE\022\021\n\tobject_id\030\001"
-  " \001(\004\"j\n\rC_SNIPER_FIRE\022\021\n\tobject_id\030\001 \001(\004"
-  "\022#\n\005start\030\002 \001(\0132\024.Protocol.VectorInfo\022!\n"
-  "\003end\030\003 \001(\0132\024.Protocol.VectorInfo\"j\n\rS_SN"
-  "IPER_FIRE\022\021\n\tobject_id\030\001 \001(\004\022#\n\005start\030\002 "
-  "\001(\0132\024.Protocol.VectorInfo\022!\n\003end\030\003 \001(\0132\024"
-  ".Protocol.VectorInfo\"/\n\rC_CHANGE_ITEM\022\021\n"
-  "\tobject_id\030\001 \001(\004\022\013\n\003key\030\002 \001(\r\"/\n\rS_CHANG"
-  "E_ITEM\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003key\030\002 \001(\rb\006"
-  "proto3"
+  "\022)\n\tcreatures\030\002 \003(\0132\026.Protocol.CreatureI"
+  "nfo\"\037\n\tS_DESPAWN\022\022\n\nobject_ids\030\001 \003(\004\"(\n\006"
+  "C_TURN\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003yaw\030\002 \001(\002\"("
+  "\n\006S_TURN\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003yaw\030\002 \001(\002"
+  "\"\033\n\006C_JUMP\022\021\n\tobject_id\030\001 \001(\004\"\033\n\006S_JUMP\022"
+  "\021\n\tobject_id\030\001 \001(\004\")\n\006C_MOVE\022\037\n\004info\030\001 \001"
+  "(\0132\021.Protocol.PosInfo\")\n\006S_MOVE\022\037\n\004info\030"
+  "\001 \001(\0132\021.Protocol.PosInfo\"\025\n\006C_CHAT\022\013\n\003ms"
+  "g\030\001 \001(\t\"\'\n\006S_CHAT\022\020\n\010playerId\030\001 \001(\004\022\013\n\003m"
+  "sg\030\002 \001(\t\"\010\n\006C_FIRE\"\033\n\006S_FIRE\022\021\n\tobject_i"
+  "d\030\001 \001(\004\"j\n\rC_SNIPER_FIRE\022\021\n\tobject_id\030\001 "
+  "\001(\004\022#\n\005start\030\002 \001(\0132\024.Protocol.VectorInfo"
+  "\022!\n\003end\030\003 \001(\0132\024.Protocol.VectorInfo\"j\n\rS"
+  "_SNIPER_FIRE\022\021\n\tobject_id\030\001 \001(\004\022#\n\005start"
+  "\030\002 \001(\0132\024.Protocol.VectorInfo\022!\n\003end\030\003 \001("
+  "\0132\024.Protocol.VectorInfo\"/\n\rC_CHANGE_ITEM"
+  "\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003key\030\002 \001(\r\"/\n\rS_CH"
+  "ANGE_ITEM\022\021\n\tobject_id\030\001 \001(\004\022\013\n\003key\030\002 \001("
+  "\rb\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -563,7 +566,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Protocol_2eproto_de
 };
 static ::_pbi::once_flag descriptor_table_Protocol_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocol_2eproto = {
-    false, false, 1006, descriptor_table_protodef_Protocol_2eproto,
+    false, false, 1049, descriptor_table_protodef_Protocol_2eproto,
     "Protocol.proto",
     &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 2, 22,
     schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
@@ -1330,6 +1333,9 @@ class S_SPAWN::_Internal {
 void S_SPAWN::clear_objects() {
   _impl_.objects_.Clear();
 }
+void S_SPAWN::clear_creatures() {
+  _impl_.creatures_.Clear();
+}
 S_SPAWN::S_SPAWN(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -1341,6 +1347,7 @@ S_SPAWN::S_SPAWN(const S_SPAWN& from)
   S_SPAWN* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.objects_){from._impl_.objects_}
+    , decltype(_impl_.creatures_){from._impl_.creatures_}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -1353,6 +1360,7 @@ inline void S_SPAWN::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.objects_){arena}
+    , decltype(_impl_.creatures_){arena}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1369,6 +1377,7 @@ S_SPAWN::~S_SPAWN() {
 inline void S_SPAWN::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.objects_.~RepeatedPtrField();
+  _impl_.creatures_.~RepeatedPtrField();
 }
 
 void S_SPAWN::SetCachedSize(int size) const {
@@ -1382,6 +1391,7 @@ void S_SPAWN::Clear() {
   (void) cached_has_bits;
 
   _impl_.objects_.Clear();
+  _impl_.creatures_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1401,6 +1411,19 @@ const char* S_SPAWN::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .Protocol.CreatureInfo creatures = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_creatures(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1441,6 +1464,14 @@ uint8_t* S_SPAWN::_InternalSerialize(
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .Protocol.CreatureInfo creatures = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_creatures_size()); i < n; i++) {
+    const auto& repfield = this->_internal_creatures(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1464,6 +1495,13 @@ size_t S_SPAWN::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .Protocol.CreatureInfo creatures = 2;
+  total_size += 1UL * this->_internal_creatures_size();
+  for (const auto& msg : this->_impl_.creatures_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -1483,6 +1521,7 @@ void S_SPAWN::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   (void) cached_has_bits;
 
   _this->_impl_.objects_.MergeFrom(from._impl_.objects_);
+  _this->_impl_.creatures_.MergeFrom(from._impl_.creatures_);
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1501,6 +1540,7 @@ void S_SPAWN::InternalSwap(S_SPAWN* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.objects_.InternalSwap(&other->_impl_.objects_);
+  _impl_.creatures_.InternalSwap(&other->_impl_.creatures_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_SPAWN::GetMetadata() const {

@@ -22,7 +22,7 @@ namespace _pbi = _pb::internal;
 
 namespace Protocol {
 }  // namespace Protocol
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[5];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[6];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const uint32_t TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
@@ -35,21 +35,22 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "CT_TYPE_ENV\020\003*\214\001\n\014CreatureType\022\026\n\022CREATU"
   "RE_TYPE_NONE\020\000\022\030\n\024CREATURE_TYPE_PLAYER\020\001"
   "\022\025\n\021CREATURE_TYPE_NPC\020\002\022\031\n\025CREATURE_TYPE"
-  "_MONSTER\020\003\022\030\n\024CREATURE_TYPE_ENERMY\020\004*h\n\n"
-  "PlayerType\022\024\n\020PLAYER_TYPE_NONE\020\000\022\026\n\022PLAY"
-  "ER_TYPE_KNIGHT\020\001\022\024\n\020PLAYER_TYPE_MAGE\020\002\022\026"
-  "\n\022PLAYER_TYPE_ARCHER\020\003*t\n\tMoveState\022\023\n\017M"
-  "OVE_STATE_NONE\020\000\022\023\n\017MOVE_STATE_IDLE\020\001\022\022\n"
-  "\016MOVE_STATE_RUN\020\002\022\023\n\017MOVE_STATE_JUMP\020\003\022\024"
-  "\n\020MOVE_STATE_SKILL\020\004*\232\001\n\013EnermyState\022\025\n\021"
-  "ENERMY_STATE_NONE\020\000\022\025\n\021ENERMY_STATE_IDLE"
-  "\020\001\022\025\n\021ENERMY_STATE_MOVE\020\002\022\027\n\023ENERMY_STAT"
-  "E_ATTACK\020\003\022\027\n\023ENERMY_STATE_DAMAGE\020\004\022\024\n\020E"
-  "NERMY_STATE_DIE\020\005b\006proto3"
+  "_MONSTER\020\003\022\030\n\024CREATURE_TYPE_ENERMY\020\004*<\n\n"
+  "PlayerType\022\024\n\020PLAYER_TYPE_NONE\020\000\022\030\n\024PLAY"
+  "ER_TYPE_SURVIVOR\020\001*:\n\nEnermyType\022\024\n\020ENER"
+  "MY_TYPE_NONE\020\000\022\026\n\022ENERMY_TYPE_ZOMBIE\020\001*t"
+  "\n\tMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022\023\n\017MOVE"
+  "_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN\020\002\022\023\n\017MOV"
+  "E_STATE_JUMP\020\003\022\024\n\020MOVE_STATE_SKILL\020\004*\232\001\n"
+  "\013EnermyState\022\025\n\021ENERMY_STATE_NONE\020\000\022\025\n\021E"
+  "NERMY_STATE_IDLE\020\001\022\025\n\021ENERMY_STATE_MOVE\020"
+  "\002\022\027\n\023ENERMY_STATE_ATTACK\020\003\022\027\n\023ENERMY_STA"
+  "TE_DAMAGE\020\004\022\024\n\020ENERMY_STATE_DIE\020\005b\006proto"
+  "3"
   ;
 static ::_pbi::once_flag descriptor_table_Enum_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Enum_2eproto = {
-    false, false, 665, descriptor_table_protodef_Enum_2eproto,
+    false, false, 681, descriptor_table_protodef_Enum_2eproto,
     "Enum.proto",
     &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
     schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
@@ -104,8 +105,20 @@ bool PlayerType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
-    case 2:
-    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EnermyType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[3];
+}
+bool EnermyType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
       return true;
     default:
       return false;
@@ -114,7 +127,7 @@ bool PlayerType_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[3];
+  return file_level_enum_descriptors_Enum_2eproto[4];
 }
 bool MoveState_IsValid(int value) {
   switch (value) {
@@ -131,7 +144,7 @@ bool MoveState_IsValid(int value) {
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EnermyState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
-  return file_level_enum_descriptors_Enum_2eproto[4];
+  return file_level_enum_descriptors_Enum_2eproto[5];
 }
 bool EnermyState_IsValid(int value) {
   switch (value) {

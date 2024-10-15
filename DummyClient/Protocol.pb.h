@@ -1103,6 +1103,7 @@ class S_SPAWN final :
 
   enum : int {
     kObjectsFieldNumber = 1,
+    kCreaturesFieldNumber = 2,
   };
   // repeated .Protocol.ObjectInfo objects = 1;
   int objects_size() const;
@@ -1122,6 +1123,24 @@ class S_SPAWN final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ObjectInfo >&
       objects() const;
 
+  // repeated .Protocol.CreatureInfo creatures = 2;
+  int creatures_size() const;
+  private:
+  int _internal_creatures_size() const;
+  public:
+  void clear_creatures();
+  ::Protocol::CreatureInfo* mutable_creatures(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::CreatureInfo >*
+      mutable_creatures();
+  private:
+  const ::Protocol::CreatureInfo& _internal_creatures(int index) const;
+  ::Protocol::CreatureInfo* _internal_add_creatures();
+  public:
+  const ::Protocol::CreatureInfo& creatures(int index) const;
+  ::Protocol::CreatureInfo* add_creatures();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::CreatureInfo >&
+      creatures() const;
+
   // @@protoc_insertion_point(class_scope:Protocol.S_SPAWN)
  private:
   class _Internal;
@@ -1131,6 +1150,7 @@ class S_SPAWN final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ObjectInfo > objects_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::CreatureInfo > creatures_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3755,6 +3775,43 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ObjectInfo >
 S_SPAWN::objects() const {
   // @@protoc_insertion_point(field_list:Protocol.S_SPAWN.objects)
   return _impl_.objects_;
+}
+
+// repeated .Protocol.CreatureInfo creatures = 2;
+inline int S_SPAWN::_internal_creatures_size() const {
+  return _impl_.creatures_.size();
+}
+inline int S_SPAWN::creatures_size() const {
+  return _internal_creatures_size();
+}
+inline ::Protocol::CreatureInfo* S_SPAWN::mutable_creatures(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SPAWN.creatures)
+  return _impl_.creatures_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::CreatureInfo >*
+S_SPAWN::mutable_creatures() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.S_SPAWN.creatures)
+  return &_impl_.creatures_;
+}
+inline const ::Protocol::CreatureInfo& S_SPAWN::_internal_creatures(int index) const {
+  return _impl_.creatures_.Get(index);
+}
+inline const ::Protocol::CreatureInfo& S_SPAWN::creatures(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SPAWN.creatures)
+  return _internal_creatures(index);
+}
+inline ::Protocol::CreatureInfo* S_SPAWN::_internal_add_creatures() {
+  return _impl_.creatures_.Add();
+}
+inline ::Protocol::CreatureInfo* S_SPAWN::add_creatures() {
+  ::Protocol::CreatureInfo* _add = _internal_add_creatures();
+  // @@protoc_insertion_point(field_add:Protocol.S_SPAWN.creatures)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::CreatureInfo >&
+S_SPAWN::creatures() const {
+  // @@protoc_insertion_point(field_list:Protocol.S_SPAWN.creatures)
+  return _impl_.creatures_;
 }
 
 // -------------------------------------------------------------------

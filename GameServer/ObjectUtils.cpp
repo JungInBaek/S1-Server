@@ -14,9 +14,15 @@ PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session)
 	const int64 newId = s_idGenerator.fetch_add(1);
 
 	PlayerRef player = ObjectPool<Player>::MakeShared();
+
 	player->objectInfo->set_object_id(newId);
 	player->objectInfo->set_object_type(Protocol::OBJECT_TYPE_CREATURE);
-	player->objectInfo->set_creature_type(Protocol::CREATURE_TYPE_PLAYER);
+
+	Protocol::CreatureInfo* creatureInfo = player->objectInfo->mutable_creature_info();
+	creatureInfo->set_creature_type(Protocol::CREATURE_TYPE_PLAYER);
+	
+	Protocol::PlayerInfo* playerInfo = player->objectInfo->mutable_player_info();
+	playerInfo->set_player_type(Protocol::PLAYER_TYPE_SURVIVOR);
 
 	player->posInfo->set_object_id(newId);
 
@@ -31,9 +37,15 @@ EnermyRef ObjectUtils::CreateEnermy()
 	const int64 newId = s_idGenerator.fetch_add(1);
 
 	EnermyRef enermy = ObjectPool<Enermy>::MakeShared();
+
 	enermy->objectInfo->set_object_id(newId);
 	enermy->objectInfo->set_object_type(Protocol::OBJECT_TYPE_CREATURE);
-	enermy->objectInfo->set_creature_type(Protocol::CREATURE_TYPE_ENERMY);
+
+	Protocol::CreatureInfo* creatureInfo = enermy->objectInfo->mutable_creature_info();
+	creatureInfo->set_creature_type(Protocol::CREATURE_TYPE_ENERMY);
+
+	Protocol::EnermyInfo* enermyInfo = enermy->objectInfo->mutable_enermy_info();
+	enermyInfo->set_enermy_type(Protocol::ENERMY_TYPE_ZOMBIE);
 
 	enermy->posInfo->set_object_id(newId);
 

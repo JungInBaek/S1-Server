@@ -4,6 +4,7 @@
 
 Enermy::Enermy()
 {
+	
 }
 
 Enermy::~Enermy()

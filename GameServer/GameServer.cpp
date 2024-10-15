@@ -61,7 +61,7 @@ int main()
 		);
 	}
 
-	// Main Thread
+	//Main Thread
 	//DoWorkerJob(service);
 
 	while (true)
