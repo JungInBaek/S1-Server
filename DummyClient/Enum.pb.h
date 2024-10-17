@@ -152,40 +152,40 @@ inline bool EnermyType_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EnermyType>(
     EnermyType_descriptor(), name, value);
 }
-enum MoveState : int {
-  MOVE_STATE_NONE = 0,
-  MOVE_STATE_IDLE = 1,
-  MOVE_STATE_FORWARD = 2,
-  MOVE_STATE_BACKWARD = 3,
-  MOVE_STATE_RIGHT = 4,
-  MOVE_STATE_LEFT = 5,
-  MOVE_STATE_RIGHT_FORWARD = 6,
-  MOVE_STATE_LEFT_FORWARD = 7,
-  MOVE_STATE_RIGHT_BACKWARD = 8,
-  MOVE_STATE_LEFT_BACKWARD = 9,
-  MOVE_STATE_JUMP = 10,
-  MOVE_STATE_FIRE = 11,
-  MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+enum PlayerState : int {
+  PLAYER_STATE_NONE = 0,
+  PLAYER_STATE_IDLE = 1,
+  PLAYER_STATE_FORWARD = 2,
+  PLAYER_STATE_BACKWARD = 3,
+  PLAYER_STATE_RIGHT = 4,
+  PLAYER_STATE_LEFT = 5,
+  PLAYER_STATE_RIGHT_FORWARD = 6,
+  PLAYER_STATE_LEFT_FORWARD = 7,
+  PLAYER_STATE_RIGHT_BACKWARD = 8,
+  PLAYER_STATE_LEFT_BACKWARD = 9,
+  PLAYER_STATE_JUMP = 10,
+  PLAYER_STATE_FIRE = 11,
+  PlayerState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  PlayerState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool MoveState_IsValid(int value);
-constexpr MoveState MoveState_MIN = MOVE_STATE_NONE;
-constexpr MoveState MoveState_MAX = MOVE_STATE_FIRE;
-constexpr int MoveState_ARRAYSIZE = MoveState_MAX + 1;
+bool PlayerState_IsValid(int value);
+constexpr PlayerState PlayerState_MIN = PLAYER_STATE_NONE;
+constexpr PlayerState PlayerState_MAX = PLAYER_STATE_FIRE;
+constexpr int PlayerState_ARRAYSIZE = PlayerState_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PlayerState_descriptor();
 template<typename T>
-inline const std::string& MoveState_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, MoveState>::value ||
+inline const std::string& PlayerState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, PlayerState>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function MoveState_Name.");
+    "Incorrect type passed to function PlayerState_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    MoveState_descriptor(), enum_t_value);
+    PlayerState_descriptor(), enum_t_value);
 }
-inline bool MoveState_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MoveState* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MoveState>(
-    MoveState_descriptor(), name, value);
+inline bool PlayerState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PlayerState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PlayerState>(
+    PlayerState_descriptor(), name, value);
 }
 enum EnermyState : int {
   ENERMY_STATE_NONE = 0,
@@ -258,10 +258,10 @@ template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EnermyType>() {
   return ::Protocol::EnermyType_descriptor();
 }
-template <> struct is_proto_enum< ::Protocol::MoveState> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::PlayerState> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MoveState>() {
-  return ::Protocol::MoveState_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::PlayerState>() {
+  return ::Protocol::PlayerState_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::EnermyState> : ::std::true_type {};
 template <>

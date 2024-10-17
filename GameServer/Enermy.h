@@ -7,5 +7,8 @@ class Enermy : public Creature
 public:
 	Enermy();
 	virtual ~Enermy();
+
+public:
+	PlayerRef target;
 };
 

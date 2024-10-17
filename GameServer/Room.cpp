@@ -206,9 +206,26 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 	}
 }
 
+void Room::HandleState(Protocol::C_STATE pkt)
+{
+	const uint64 objectId = pkt.object_id();
+	Protocol::S_STATE statePkt;
+	statePkt.set_object_id(objectId);
+	if (pkt.player_state() != Protocol::PLAYER_STATE_NONE)
+	{
+		statePkt.set_player_state(pkt.player_state());
+	}
+	else if (pkt.player_state() != Protocol::ENERMY_STATE_NONE)
+	{
+		statePkt.set_enermy_state(pkt.enermy_state());
+	}
+	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(statePkt);
+	Broadcast(sendBuffer, objectId);
+}
+
 void Room::HandleFire(PlayerRef player)
 {
-	uint64 objectId = player->objectInfo->object_id();
+	const uint64 objectId = player->objectInfo->object_id();
 	Protocol::S_FIRE firePkt;
 	firePkt.set_object_id(objectId);
 	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(firePkt);
@@ -240,28 +257,26 @@ void Room::UpdateTick()
 
 	// TODO: 게임 로직
 	// Enermy 로직
-	for (std::pair<const uint64, ObjectRef>& object : _objects)
+	/*for (std::pair<const uint64, EnermyRef>& item : _enermies)
 	{
-		if (object.second->IsEnermy())
+		float min = FLT_MAX;
+		EnermyRef enermy = static_pointer_cast<Enermy>(item.second);
+
+		for (std::pair<const uint64, PlayerRef>& item : _players)
 		{
-			EnermyRef enermy = static_pointer_cast<Enermy>(object.second);
-
-			/*float min = FLT_MAX;
-
-			TArray<AActor*, FDefaultAllocator> actors;
-			UGameplayStatics::GetAllActorsOfClass(GetWorld(), AS1Player::StaticClass(), actors);
-			for (AActor* actor : actors)
+			PlayerRef player = item.second;
+			Protocol::VectorInfo distanceVector;
+			distanceVector.set_x(enermy->posInfo->vector_info().x() - player->posInfo->vector_info().x());
+			distanceVector.set_y(enermy->posInfo->vector_info().y() - player->posInfo->vector_info().y());
+			distanceVector.set_z(enermy->posInfo->vector_info().z() - player->posInfo->vector_info().z());
+			float distance = distanceVector.x() + distanceVector.y() + distanceVector.z();
+			if (min > distance)
 			{
-				AS1Player* player = Cast<AS1Player>(actor);
-				float distance = FVector::Distance(player->GetActorLocation(), me->GetActorLocation());
-				if (min > distance)
-				{
-					min = distance;
-					target = player;
-				}
-			}*/
+				min = distance;
+				enermy->target = player;
+			}
 		}
-	}
+	}*/
 
 	DoTimer(100, &Room::UpdateTick);
 }

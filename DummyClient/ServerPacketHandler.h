@@ -24,14 +24,16 @@ enum : uint16
 	PKT_S_JUMP = 1011,
 	PKT_C_MOVE = 1012,
 	PKT_S_MOVE = 1013,
-	PKT_C_CHAT = 1014,
-	PKT_S_CHAT = 1015,
-	PKT_C_FIRE = 1016,
-	PKT_S_FIRE = 1017,
-	PKT_C_SNIPER_FIRE = 1018,
-	PKT_S_SNIPER_FIRE = 1019,
-	PKT_C_CHANGE_ITEM = 1020,
-	PKT_S_CHANGE_ITEM = 1021,
+	PKT_C_STATE = 1014,
+	PKT_S_STATE = 1015,
+	PKT_C_CHAT = 1016,
+	PKT_S_CHAT = 1017,
+	PKT_C_FIRE = 1018,
+	PKT_S_FIRE = 1019,
+	PKT_C_SNIPER_FIRE = 1020,
+	PKT_S_SNIPER_FIRE = 1021,
+	PKT_C_CHANGE_ITEM = 1022,
+	PKT_S_CHANGE_ITEM = 1023,
 };
 
 // Custom Handler
@@ -44,6 +46,7 @@ bool Handle_S_DESPAWN(PacketSessionRef& session, Protocol::S_DESPAWN& pkt);
 bool Handle_S_TURN(PacketSessionRef& session, Protocol::S_TURN& pkt);
 bool Handle_S_JUMP(PacketSessionRef& session, Protocol::S_JUMP& pkt);
 bool Handle_S_MOVE(PacketSessionRef& session, Protocol::S_MOVE& pkt);
+bool Handle_S_STATE(PacketSessionRef& session, Protocol::S_STATE& pkt);
 bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt);
 bool Handle_S_FIRE(PacketSessionRef& session, Protocol::S_FIRE& pkt);
 bool Handle_S_SNIPER_FIRE(PacketSessionRef& session, Protocol::S_SNIPER_FIRE& pkt);
@@ -67,6 +70,7 @@ public:
 		GPacketHandler[PKT_S_TURN] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_TURN>(Handle_S_TURN, session, buffer, len); };
 		GPacketHandler[PKT_S_JUMP] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_JUMP>(Handle_S_JUMP, session, buffer, len); };
 		GPacketHandler[PKT_S_MOVE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_MOVE>(Handle_S_MOVE, session, buffer, len); };
+		GPacketHandler[PKT_S_STATE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_STATE>(Handle_S_STATE, session, buffer, len); };
 		GPacketHandler[PKT_S_CHAT] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_CHAT>(Handle_S_CHAT, session, buffer, len); };
 		GPacketHandler[PKT_S_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_FIRE>(Handle_S_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_S_SNIPER_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_SNIPER_FIRE>(Handle_S_SNIPER_FIRE, session, buffer, len); };
@@ -84,6 +88,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::C_TURN& pkt) { return MakeSendBuffer(pkt, PKT_C_TURN); }
 	static SendBufferRef MakeSendBuffer(Protocol::C_JUMP& pkt) { return MakeSendBuffer(pkt, PKT_C_JUMP); }
 	static SendBufferRef MakeSendBuffer(Protocol::C_MOVE& pkt) { return MakeSendBuffer(pkt, PKT_C_MOVE); }
+	static SendBufferRef MakeSendBuffer(Protocol::C_STATE& pkt) { return MakeSendBuffer(pkt, PKT_C_STATE); }
 	static SendBufferRef MakeSendBuffer(Protocol::C_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_C_CHAT); }
 	static SendBufferRef MakeSendBuffer(Protocol::C_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_C_FIRE); }
 	static SendBufferRef MakeSendBuffer(Protocol::C_SNIPER_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_C_SNIPER_FIRE); }

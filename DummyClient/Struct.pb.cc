@@ -41,7 +41,6 @@ PROTOBUF_CONSTEXPR PosInfo::PosInfo(
     /*decltype(_impl_.vector_info_)*/nullptr
   , /*decltype(_impl_.object_id_)*/uint64_t{0u}
   , /*decltype(_impl_.yaw_)*/0
-  , /*decltype(_impl_.state_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PosInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PosInfoDefaultTypeInternal()
@@ -68,6 +67,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR PlayerInfo::PlayerInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.player_type_)*/0
+  , /*decltype(_impl_.player_state_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PlayerInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerInfoDefaultTypeInternal()
@@ -81,6 +81,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR EnermyInfo::EnermyInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.enermy_type_)*/0
+  , /*decltype(_impl_.enermy_state_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnermyInfoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EnermyInfoDefaultTypeInternal()
@@ -133,7 +134,6 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.object_id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.vector_info_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.yaw_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::CreatureInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -148,6 +148,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, _impl_.player_type_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, _impl_.player_state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::EnermyInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -155,6 +156,7 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::EnermyInfo, _impl_.enermy_type_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::EnermyInfo, _impl_.enermy_state_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::ObjectInfo, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -171,10 +173,10 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::VectorInfo)},
   { 9, -1, -1, sizeof(::Protocol::PosInfo)},
-  { 19, -1, -1, sizeof(::Protocol::CreatureInfo)},
-  { 26, -1, -1, sizeof(::Protocol::PlayerInfo)},
+  { 18, -1, -1, sizeof(::Protocol::CreatureInfo)},
+  { 25, -1, -1, sizeof(::Protocol::PlayerInfo)},
   { 33, -1, -1, sizeof(::Protocol::EnermyInfo)},
-  { 40, -1, -1, sizeof(::Protocol::ObjectInfo)},
+  { 41, -1, -1, sizeof(::Protocol::ObjectInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -189,27 +191,29 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"-\n\n"
   "VectorInfo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 "
-  "\001(\002\"x\n\007PosInfo\022\021\n\tobject_id\030\001 \001(\004\022)\n\013vec"
+  "\001(\002\"T\n\007PosInfo\022\021\n\tobject_id\030\001 \001(\004\022)\n\013vec"
   "tor_info\030\002 \001(\0132\024.Protocol.VectorInfo\022\013\n\003"
-  "yaw\030\003 \001(\002\022\"\n\005state\030\004 \001(\0162\023.Protocol.Move"
-  "State\"=\n\014CreatureInfo\022-\n\rcreature_type\030\001"
-  " \001(\0162\026.Protocol.CreatureType\"7\n\nPlayerIn"
-  "fo\022)\n\013player_type\030\001 \001(\0162\024.Protocol.Playe"
-  "rType\"7\n\nEnermyInfo\022)\n\013enermy_type\030\001 \001(\016"
-  "2\024.Protocol.EnermyType\"\364\001\n\nObjectInfo\022\021\n"
-  "\tobject_id\030\001 \001(\004\022#\n\010pos_info\030\002 \001(\0132\021.Pro"
-  "tocol.PosInfo\022)\n\013object_type\030\003 \001(\0162\024.Pro"
-  "tocol.ObjectType\022-\n\rcreature_info\030\004 \001(\0132"
-  "\026.Protocol.CreatureInfo\022)\n\013player_info\030\005"
-  " \001(\0132\024.Protocol.PlayerInfo\022)\n\013enermy_inf"
-  "o\030\006 \001(\0132\024.Protocol.EnermyInfob\006proto3"
+  "yaw\030\003 \001(\002\"=\n\014CreatureInfo\022-\n\rcreature_ty"
+  "pe\030\001 \001(\0162\026.Protocol.CreatureType\"d\n\nPlay"
+  "erInfo\022)\n\013player_type\030\001 \001(\0162\024.Protocol.P"
+  "layerType\022+\n\014player_state\030\002 \001(\0162\025.Protoc"
+  "ol.PlayerState\"d\n\nEnermyInfo\022)\n\013enermy_t"
+  "ype\030\001 \001(\0162\024.Protocol.EnermyType\022+\n\014enerm"
+  "y_state\030\002 \001(\0162\025.Protocol.EnermyState\"\364\001\n"
+  "\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004\022#\n\010pos_in"
+  "fo\030\002 \001(\0132\021.Protocol.PosInfo\022)\n\013object_ty"
+  "pe\030\003 \001(\0162\024.Protocol.ObjectType\022-\n\rcreatu"
+  "re_info\030\004 \001(\0132\026.Protocol.CreatureInfo\022)\n"
+  "\013player_info\030\005 \001(\0132\024.Protocol.PlayerInfo"
+  "\022)\n\013enermy_info\030\006 \001(\0132\024.Protocol.EnermyI"
+  "nfob\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 637, descriptor_table_protodef_Struct_2eproto,
+    false, false, 691, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 6,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -519,7 +523,6 @@ PosInfo::PosInfo(const PosInfo& from)
       decltype(_impl_.vector_info_){nullptr}
     , decltype(_impl_.object_id_){}
     , decltype(_impl_.yaw_){}
-    , decltype(_impl_.state_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -527,8 +530,8 @@ PosInfo::PosInfo(const PosInfo& from)
     _this->_impl_.vector_info_ = new ::Protocol::VectorInfo(*from._impl_.vector_info_);
   }
   ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.state_) -
-    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.state_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.yaw_) -
+    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.yaw_));
   // @@protoc_insertion_point(copy_constructor:Protocol.PosInfo)
 }
 
@@ -540,7 +543,6 @@ inline void PosInfo::SharedCtor(
       decltype(_impl_.vector_info_){nullptr}
     , decltype(_impl_.object_id_){uint64_t{0u}}
     , decltype(_impl_.yaw_){0}
-    , decltype(_impl_.state_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -574,8 +576,8 @@ void PosInfo::Clear() {
   }
   _impl_.vector_info_ = nullptr;
   ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.state_) -
-      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.state_));
+      reinterpret_cast<char*>(&_impl_.yaw_) -
+      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.yaw_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -606,15 +608,6 @@ const char* PosInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _impl_.yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // .Protocol.MoveState state = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_state(static_cast<::Protocol::MoveState>(val));
         } else
           goto handle_unusual;
         continue;
@@ -670,13 +663,6 @@ uint8_t* PosInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_yaw(), target);
   }
 
-  // .Protocol.MoveState state = 4;
-  if (this->_internal_state() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      4, this->_internal_state(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -714,12 +700,6 @@ size_t PosInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // .Protocol.MoveState state = 4;
-  if (this->_internal_state() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -752,9 +732,6 @@ void PosInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   if (raw_yaw != 0) {
     _this->_internal_set_yaw(from._internal_yaw());
   }
-  if (from._internal_state() != 0) {
-    _this->_internal_set_state(from._internal_state());
-  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -773,8 +750,8 @@ void PosInfo::InternalSwap(PosInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PosInfo, _impl_.state_)
-      + sizeof(PosInfo::_impl_.state_)
+      PROTOBUF_FIELD_OFFSET(PosInfo, _impl_.yaw_)
+      + sizeof(PosInfo::_impl_.yaw_)
       - PROTOBUF_FIELD_OFFSET(PosInfo, _impl_.vector_info_)>(
           reinterpret_cast<char*>(&_impl_.vector_info_),
           reinterpret_cast<char*>(&other->_impl_.vector_info_));
@@ -984,10 +961,13 @@ PlayerInfo::PlayerInfo(const PlayerInfo& from)
   PlayerInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.player_type_){}
+    , decltype(_impl_.player_state_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.player_type_ = from._impl_.player_type_;
+  ::memcpy(&_impl_.player_type_, &from._impl_.player_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.player_state_) -
+    reinterpret_cast<char*>(&_impl_.player_type_)) + sizeof(_impl_.player_state_));
   // @@protoc_insertion_point(copy_constructor:Protocol.PlayerInfo)
 }
 
@@ -997,6 +977,7 @@ inline void PlayerInfo::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.player_type_){0}
+    , decltype(_impl_.player_state_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1024,7 +1005,9 @@ void PlayerInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.player_type_ = 0;
+  ::memset(&_impl_.player_type_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.player_state_) -
+      reinterpret_cast<char*>(&_impl_.player_type_)) + sizeof(_impl_.player_state_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1040,6 +1023,15 @@ const char* PlayerInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_player_type(static_cast<::Protocol::PlayerType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.PlayerState player_state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_player_state(static_cast<::Protocol::PlayerState>(val));
         } else
           goto handle_unusual;
         continue;
@@ -1079,6 +1071,13 @@ uint8_t* PlayerInfo::_InternalSerialize(
       1, this->_internal_player_type(), target);
   }
 
+  // .Protocol.PlayerState player_state = 2;
+  if (this->_internal_player_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_player_state(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1099,6 +1098,12 @@ size_t PlayerInfo::ByteSizeLong() const {
   if (this->_internal_player_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_player_type());
+  }
+
+  // .Protocol.PlayerState player_state = 2;
+  if (this->_internal_player_state() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_player_state());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1122,6 +1127,9 @@ void PlayerInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_player_type() != 0) {
     _this->_internal_set_player_type(from._internal_player_type());
   }
+  if (from._internal_player_state() != 0) {
+    _this->_internal_set_player_state(from._internal_player_state());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1139,7 +1147,12 @@ bool PlayerInfo::IsInitialized() const {
 void PlayerInfo::InternalSwap(PlayerInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.player_type_, other->_impl_.player_type_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PlayerInfo, _impl_.player_state_)
+      + sizeof(PlayerInfo::_impl_.player_state_)
+      - PROTOBUF_FIELD_OFFSET(PlayerInfo, _impl_.player_type_)>(
+          reinterpret_cast<char*>(&_impl_.player_type_),
+          reinterpret_cast<char*>(&other->_impl_.player_type_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerInfo::GetMetadata() const {
@@ -1165,10 +1178,13 @@ EnermyInfo::EnermyInfo(const EnermyInfo& from)
   EnermyInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.enermy_type_){}
+    , decltype(_impl_.enermy_state_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.enermy_type_ = from._impl_.enermy_type_;
+  ::memcpy(&_impl_.enermy_type_, &from._impl_.enermy_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enermy_state_) -
+    reinterpret_cast<char*>(&_impl_.enermy_type_)) + sizeof(_impl_.enermy_state_));
   // @@protoc_insertion_point(copy_constructor:Protocol.EnermyInfo)
 }
 
@@ -1178,6 +1194,7 @@ inline void EnermyInfo::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.enermy_type_){0}
+    , decltype(_impl_.enermy_state_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -1205,7 +1222,9 @@ void EnermyInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.enermy_type_ = 0;
+  ::memset(&_impl_.enermy_type_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.enermy_state_) -
+      reinterpret_cast<char*>(&_impl_.enermy_type_)) + sizeof(_impl_.enermy_state_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1221,6 +1240,15 @@ const char* EnermyInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_enermy_type(static_cast<::Protocol::EnermyType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.EnermyState enermy_state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_enermy_state(static_cast<::Protocol::EnermyState>(val));
         } else
           goto handle_unusual;
         continue;
@@ -1260,6 +1288,13 @@ uint8_t* EnermyInfo::_InternalSerialize(
       1, this->_internal_enermy_type(), target);
   }
 
+  // .Protocol.EnermyState enermy_state = 2;
+  if (this->_internal_enermy_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_enermy_state(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1280,6 +1315,12 @@ size_t EnermyInfo::ByteSizeLong() const {
   if (this->_internal_enermy_type() != 0) {
     total_size += 1 +
       ::_pbi::WireFormatLite::EnumSize(this->_internal_enermy_type());
+  }
+
+  // .Protocol.EnermyState enermy_state = 2;
+  if (this->_internal_enermy_state() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_enermy_state());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1303,6 +1344,9 @@ void EnermyInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_enermy_type() != 0) {
     _this->_internal_set_enermy_type(from._internal_enermy_type());
   }
+  if (from._internal_enermy_state() != 0) {
+    _this->_internal_set_enermy_state(from._internal_enermy_state());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1320,7 +1364,12 @@ bool EnermyInfo::IsInitialized() const {
 void EnermyInfo::InternalSwap(EnermyInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.enermy_type_, other->_impl_.enermy_type_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(EnermyInfo, _impl_.enermy_state_)
+      + sizeof(EnermyInfo::_impl_.enermy_state_)
+      - PROTOBUF_FIELD_OFFSET(EnermyInfo, _impl_.enermy_type_)>(
+          reinterpret_cast<char*>(&_impl_.enermy_type_),
+          reinterpret_cast<char*>(&other->_impl_.enermy_type_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata EnermyInfo::GetMetadata() const {

@@ -122,6 +122,15 @@ bool Handle_C_MOVE(PacketSessionRef& session, Protocol::C_MOVE& pkt)
 	return true;
 }
 
+bool Handle_C_STATE(PacketSessionRef& session, Protocol::C_STATE& pkt)
+{
+	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
+	
+	GRoom->DoAsync(&Room::HandleState, pkt);
+
+	return true;
+}
+
 bool Handle_C_CHAT(PacketSessionRef& session, Protocol::C_CHAT& pkt)
 {
 	return true;

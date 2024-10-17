@@ -21,6 +21,7 @@ public:
 	bool HandleLeavePlayer(PlayerRef player);
 	void HandleTurn(Protocol::C_TURN pkt);
 	void HandleMove(Protocol::C_MOVE pkt);
+	void HandleState(Protocol::C_STATE pkt);
 	void HandleFire(PlayerRef player);
 	void HandleChangeItem(Protocol::C_CHANGE_ITEM pkt);
 	void HandleSniperFire(Protocol::C_SNIPER_FIRE pkt);
@@ -37,8 +38,8 @@ private:
 
 public:
 	unordered_map<uint64, ObjectRef> _objects;
-	/*unordered_map<uint64, PlayerRef> _players;
-	unordered_map<uint64, MonsterRef> _monsters;*/
+	unordered_map<uint64, PlayerRef> _players;
+	unordered_map<uint64, EnermyRef> _enermies;
 };
 
 

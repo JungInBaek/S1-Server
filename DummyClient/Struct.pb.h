@@ -371,7 +371,6 @@ class PosInfo final :
     kVectorInfoFieldNumber = 2,
     kObjectIdFieldNumber = 1,
     kYawFieldNumber = 3,
-    kStateFieldNumber = 4,
   };
   // .Protocol.VectorInfo vector_info = 2;
   bool has_vector_info() const;
@@ -409,15 +408,6 @@ class PosInfo final :
   void _internal_set_yaw(float value);
   public:
 
-  // .Protocol.MoveState state = 4;
-  void clear_state();
-  ::Protocol::MoveState state() const;
-  void set_state(::Protocol::MoveState value);
-  private:
-  ::Protocol::MoveState _internal_state() const;
-  void _internal_set_state(::Protocol::MoveState value);
-  public:
-
   // @@protoc_insertion_point(class_scope:Protocol.PosInfo)
  private:
   class _Internal;
@@ -429,7 +419,6 @@ class PosInfo final :
     ::Protocol::VectorInfo* vector_info_;
     uint64_t object_id_;
     float yaw_;
-    int state_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -707,6 +696,7 @@ class PlayerInfo final :
 
   enum : int {
     kPlayerTypeFieldNumber = 1,
+    kPlayerStateFieldNumber = 2,
   };
   // .Protocol.PlayerType player_type = 1;
   void clear_player_type();
@@ -715,6 +705,15 @@ class PlayerInfo final :
   private:
   ::Protocol::PlayerType _internal_player_type() const;
   void _internal_set_player_type(::Protocol::PlayerType value);
+  public:
+
+  // .Protocol.PlayerState player_state = 2;
+  void clear_player_state();
+  ::Protocol::PlayerState player_state() const;
+  void set_player_state(::Protocol::PlayerState value);
+  private:
+  ::Protocol::PlayerState _internal_player_state() const;
+  void _internal_set_player_state(::Protocol::PlayerState value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.PlayerInfo)
@@ -726,6 +725,7 @@ class PlayerInfo final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int player_type_;
+    int player_state_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -855,6 +855,7 @@ class EnermyInfo final :
 
   enum : int {
     kEnermyTypeFieldNumber = 1,
+    kEnermyStateFieldNumber = 2,
   };
   // .Protocol.EnermyType enermy_type = 1;
   void clear_enermy_type();
@@ -863,6 +864,15 @@ class EnermyInfo final :
   private:
   ::Protocol::EnermyType _internal_enermy_type() const;
   void _internal_set_enermy_type(::Protocol::EnermyType value);
+  public:
+
+  // .Protocol.EnermyState enermy_state = 2;
+  void clear_enermy_state();
+  ::Protocol::EnermyState enermy_state() const;
+  void set_enermy_state(::Protocol::EnermyState value);
+  private:
+  ::Protocol::EnermyState _internal_enermy_state() const;
+  void _internal_set_enermy_state(::Protocol::EnermyState value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.EnermyInfo)
@@ -874,6 +884,7 @@ class EnermyInfo final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int enermy_type_;
+    int enermy_state_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1323,26 +1334,6 @@ inline void PosInfo::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:Protocol.PosInfo.yaw)
 }
 
-// .Protocol.MoveState state = 4;
-inline void PosInfo::clear_state() {
-  _impl_.state_ = 0;
-}
-inline ::Protocol::MoveState PosInfo::_internal_state() const {
-  return static_cast< ::Protocol::MoveState >(_impl_.state_);
-}
-inline ::Protocol::MoveState PosInfo::state() const {
-  // @@protoc_insertion_point(field_get:Protocol.PosInfo.state)
-  return _internal_state();
-}
-inline void PosInfo::_internal_set_state(::Protocol::MoveState value) {
-  
-  _impl_.state_ = value;
-}
-inline void PosInfo::set_state(::Protocol::MoveState value) {
-  _internal_set_state(value);
-  // @@protoc_insertion_point(field_set:Protocol.PosInfo.state)
-}
-
 // -------------------------------------------------------------------
 
 // CreatureInfo
@@ -1391,6 +1382,26 @@ inline void PlayerInfo::set_player_type(::Protocol::PlayerType value) {
   // @@protoc_insertion_point(field_set:Protocol.PlayerInfo.player_type)
 }
 
+// .Protocol.PlayerState player_state = 2;
+inline void PlayerInfo::clear_player_state() {
+  _impl_.player_state_ = 0;
+}
+inline ::Protocol::PlayerState PlayerInfo::_internal_player_state() const {
+  return static_cast< ::Protocol::PlayerState >(_impl_.player_state_);
+}
+inline ::Protocol::PlayerState PlayerInfo::player_state() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerInfo.player_state)
+  return _internal_player_state();
+}
+inline void PlayerInfo::_internal_set_player_state(::Protocol::PlayerState value) {
+  
+  _impl_.player_state_ = value;
+}
+inline void PlayerInfo::set_player_state(::Protocol::PlayerState value) {
+  _internal_set_player_state(value);
+  // @@protoc_insertion_point(field_set:Protocol.PlayerInfo.player_state)
+}
+
 // -------------------------------------------------------------------
 
 // EnermyInfo
@@ -1413,6 +1424,26 @@ inline void EnermyInfo::_internal_set_enermy_type(::Protocol::EnermyType value) 
 inline void EnermyInfo::set_enermy_type(::Protocol::EnermyType value) {
   _internal_set_enermy_type(value);
   // @@protoc_insertion_point(field_set:Protocol.EnermyInfo.enermy_type)
+}
+
+// .Protocol.EnermyState enermy_state = 2;
+inline void EnermyInfo::clear_enermy_state() {
+  _impl_.enermy_state_ = 0;
+}
+inline ::Protocol::EnermyState EnermyInfo::_internal_enermy_state() const {
+  return static_cast< ::Protocol::EnermyState >(_impl_.enermy_state_);
+}
+inline ::Protocol::EnermyState EnermyInfo::enermy_state() const {
+  // @@protoc_insertion_point(field_get:Protocol.EnermyInfo.enermy_state)
+  return _internal_enermy_state();
+}
+inline void EnermyInfo::_internal_set_enermy_state(::Protocol::EnermyState value) {
+  
+  _impl_.enermy_state_ = value;
+}
+inline void EnermyInfo::set_enermy_state(::Protocol::EnermyState value) {
+  _internal_set_enermy_state(value);
+  // @@protoc_insertion_point(field_set:Protocol.EnermyInfo.enermy_state)
 }
 
 // -------------------------------------------------------------------
