@@ -369,7 +369,6 @@ class PosInfo final :
 
   enum : int {
     kVectorInfoFieldNumber = 2,
-    kObjectIdFieldNumber = 1,
     kYawFieldNumber = 3,
   };
   // .Protocol.VectorInfo vector_info = 2;
@@ -390,15 +389,6 @@ class PosInfo final :
       ::Protocol::VectorInfo* vector_info);
   ::Protocol::VectorInfo* unsafe_arena_release_vector_info();
 
-  // uint64 object_id = 1;
-  void clear_object_id();
-  uint64_t object_id() const;
-  void set_object_id(uint64_t value);
-  private:
-  uint64_t _internal_object_id() const;
-  void _internal_set_object_id(uint64_t value);
-  public:
-
   // float yaw = 3;
   void clear_yaw();
   float yaw() const;
@@ -417,7 +407,6 @@ class PosInfo final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::Protocol::VectorInfo* vector_info_;
-    uint64_t object_id_;
     float yaw_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -1203,26 +1192,6 @@ inline void VectorInfo::set_z(float value) {
 // -------------------------------------------------------------------
 
 // PosInfo
-
-// uint64 object_id = 1;
-inline void PosInfo::clear_object_id() {
-  _impl_.object_id_ = uint64_t{0u};
-}
-inline uint64_t PosInfo::_internal_object_id() const {
-  return _impl_.object_id_;
-}
-inline uint64_t PosInfo::object_id() const {
-  // @@protoc_insertion_point(field_get:Protocol.PosInfo.object_id)
-  return _internal_object_id();
-}
-inline void PosInfo::_internal_set_object_id(uint64_t value) {
-  
-  _impl_.object_id_ = value;
-}
-inline void PosInfo::set_object_id(uint64_t value) {
-  _internal_set_object_id(value);
-  // @@protoc_insertion_point(field_set:Protocol.PosInfo.object_id)
-}
 
 // .Protocol.VectorInfo vector_info = 2;
 inline bool PosInfo::_internal_has_vector_info() const {

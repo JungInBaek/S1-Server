@@ -2043,9 +2043,10 @@ class C_MOVE final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 1,
+    kInfoFieldNumber = 2,
+    kObjectIdFieldNumber = 1,
   };
-  // .Protocol.PosInfo info = 1;
+  // .Protocol.PosInfo info = 2;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
@@ -2063,6 +2064,15 @@ class C_MOVE final :
       ::Protocol::PosInfo* info);
   ::Protocol::PosInfo* unsafe_arena_release_info();
 
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.C_MOVE)
  private:
   class _Internal;
@@ -2072,6 +2082,7 @@ class C_MOVE final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::Protocol::PosInfo* info_;
+    uint64_t object_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -2200,9 +2211,10 @@ class S_MOVE final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kInfoFieldNumber = 1,
+    kInfoFieldNumber = 2,
+    kObjectIdFieldNumber = 1,
   };
-  // .Protocol.PosInfo info = 1;
+  // .Protocol.PosInfo info = 2;
   bool has_info() const;
   private:
   bool _internal_has_info() const;
@@ -2220,6 +2232,15 @@ class S_MOVE final :
       ::Protocol::PosInfo* info);
   ::Protocol::PosInfo* unsafe_arena_release_info();
 
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_MOVE)
  private:
   class _Internal;
@@ -2229,6 +2250,7 @@ class S_MOVE final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::Protocol::PosInfo* info_;
+    uint64_t object_id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4296,7 +4318,27 @@ inline void S_JUMP::set_object_id(uint64_t value) {
 
 // C_MOVE
 
-// .Protocol.PosInfo info = 1;
+// uint64 object_id = 1;
+inline void C_MOVE::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t C_MOVE::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t C_MOVE::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_MOVE.object_id)
+  return _internal_object_id();
+}
+inline void C_MOVE::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void C_MOVE::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_MOVE.object_id)
+}
+
+// .Protocol.PosInfo info = 2;
 inline bool C_MOVE::_internal_has_info() const {
   return this != internal_default_instance() && _impl_.info_ != nullptr;
 }
@@ -4385,7 +4427,27 @@ inline void C_MOVE::set_allocated_info(::Protocol::PosInfo* info) {
 
 // S_MOVE
 
-// .Protocol.PosInfo info = 1;
+// uint64 object_id = 1;
+inline void S_MOVE::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t S_MOVE::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t S_MOVE::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_MOVE.object_id)
+  return _internal_object_id();
+}
+inline void S_MOVE::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void S_MOVE::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_MOVE.object_id)
+}
+
+// .Protocol.PosInfo info = 2;
 inline bool S_MOVE::_internal_has_info() const {
   return this != internal_default_instance() && _impl_.info_ != nullptr;
 }

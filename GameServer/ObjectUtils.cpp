@@ -24,8 +24,6 @@ PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session)
 	Protocol::PlayerInfo* playerInfo = player->objectInfo->mutable_player_info();
 	playerInfo->set_player_type(Protocol::PLAYER_TYPE_SURVIVOR);
 
-	player->posInfo->set_object_id(newId);
-
 	player->session = session;
 	session->_player.store(player);
 
@@ -46,8 +44,6 @@ EnermyRef ObjectUtils::CreateEnermy()
 
 	Protocol::EnermyInfo* enermyInfo = enermy->objectInfo->mutable_enermy_info();
 	enermyInfo->set_enermy_type(Protocol::ENERMY_TYPE_ZOMBIE);
-
-	enermy->posInfo->set_object_id(newId);
 
 	return enermy;
 }

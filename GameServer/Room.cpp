@@ -179,7 +179,7 @@ void Room::HandleTurn(Protocol::C_TURN pkt)
 
 void Room::HandleMove(Protocol::C_MOVE pkt)
 {
-	const uint64 objectId = pkt.info().object_id();
+	const uint64 objectId = pkt.object_id();
 	if (_objects.find(objectId) == _objects.end())
 	{
 		return;
@@ -197,7 +197,7 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 	// 이동
 	{
 		Protocol::S_MOVE movePkt;
-
+		movePkt.set_object_id(objectId);
 		Protocol::PosInfo* info = movePkt.mutable_info();
 		info->CopyFrom(pkt.info());
 

@@ -39,7 +39,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR PosInfo::PosInfo(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.vector_info_)*/nullptr
-  , /*decltype(_impl_.object_id_)*/uint64_t{0u}
   , /*decltype(_impl_.yaw_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PosInfoDefaultTypeInternal {
@@ -131,7 +130,6 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.object_id_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.vector_info_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PosInfo, _impl_.yaw_),
   ~0u,  // no _has_bits_
@@ -173,10 +171,10 @@ const uint32_t TableStruct_Struct_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::VectorInfo)},
   { 9, -1, -1, sizeof(::Protocol::PosInfo)},
-  { 18, -1, -1, sizeof(::Protocol::CreatureInfo)},
-  { 25, -1, -1, sizeof(::Protocol::PlayerInfo)},
-  { 33, -1, -1, sizeof(::Protocol::EnermyInfo)},
-  { 41, -1, -1, sizeof(::Protocol::ObjectInfo)},
+  { 17, -1, -1, sizeof(::Protocol::CreatureInfo)},
+  { 24, -1, -1, sizeof(::Protocol::PlayerInfo)},
+  { 32, -1, -1, sizeof(::Protocol::EnermyInfo)},
+  { 40, -1, -1, sizeof(::Protocol::ObjectInfo)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -191,29 +189,28 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"-\n\n"
   "VectorInfo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 "
-  "\001(\002\"T\n\007PosInfo\022\021\n\tobject_id\030\001 \001(\004\022)\n\013vec"
-  "tor_info\030\002 \001(\0132\024.Protocol.VectorInfo\022\013\n\003"
-  "yaw\030\003 \001(\002\"=\n\014CreatureInfo\022-\n\rcreature_ty"
-  "pe\030\001 \001(\0162\026.Protocol.CreatureType\"d\n\nPlay"
-  "erInfo\022)\n\013player_type\030\001 \001(\0162\024.Protocol.P"
-  "layerType\022+\n\014player_state\030\002 \001(\0162\025.Protoc"
-  "ol.PlayerState\"d\n\nEnermyInfo\022)\n\013enermy_t"
-  "ype\030\001 \001(\0162\024.Protocol.EnermyType\022+\n\014enerm"
-  "y_state\030\002 \001(\0162\025.Protocol.EnermyState\"\364\001\n"
-  "\nObjectInfo\022\021\n\tobject_id\030\001 \001(\004\022#\n\010pos_in"
-  "fo\030\002 \001(\0132\021.Protocol.PosInfo\022)\n\013object_ty"
-  "pe\030\003 \001(\0162\024.Protocol.ObjectType\022-\n\rcreatu"
-  "re_info\030\004 \001(\0132\026.Protocol.CreatureInfo\022)\n"
-  "\013player_info\030\005 \001(\0132\024.Protocol.PlayerInfo"
-  "\022)\n\013enermy_info\030\006 \001(\0132\024.Protocol.EnermyI"
-  "nfob\006proto3"
+  "\001(\002\"A\n\007PosInfo\022)\n\013vector_info\030\002 \001(\0132\024.Pr"
+  "otocol.VectorInfo\022\013\n\003yaw\030\003 \001(\002\"=\n\014Creatu"
+  "reInfo\022-\n\rcreature_type\030\001 \001(\0162\026.Protocol"
+  ".CreatureType\"d\n\nPlayerInfo\022)\n\013player_ty"
+  "pe\030\001 \001(\0162\024.Protocol.PlayerType\022+\n\014player"
+  "_state\030\002 \001(\0162\025.Protocol.PlayerState\"d\n\nE"
+  "nermyInfo\022)\n\013enermy_type\030\001 \001(\0162\024.Protoco"
+  "l.EnermyType\022+\n\014enermy_state\030\002 \001(\0162\025.Pro"
+  "tocol.EnermyState\"\364\001\n\nObjectInfo\022\021\n\tobje"
+  "ct_id\030\001 \001(\004\022#\n\010pos_info\030\002 \001(\0132\021.Protocol"
+  ".PosInfo\022)\n\013object_type\030\003 \001(\0162\024.Protocol"
+  ".ObjectType\022-\n\rcreature_info\030\004 \001(\0132\026.Pro"
+  "tocol.CreatureInfo\022)\n\013player_info\030\005 \001(\0132"
+  "\024.Protocol.PlayerInfo\022)\n\013enermy_info\030\006 \001"
+  "(\0132\024.Protocol.EnermyInfob\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Struct_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Struct_2eproto = {
-    false, false, 691, descriptor_table_protodef_Struct_2eproto,
+    false, false, 672, descriptor_table_protodef_Struct_2eproto,
     "Struct.proto",
     &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 6,
     schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
@@ -521,7 +518,6 @@ PosInfo::PosInfo(const PosInfo& from)
   PosInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.vector_info_){nullptr}
-    , decltype(_impl_.object_id_){}
     , decltype(_impl_.yaw_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -529,9 +525,7 @@ PosInfo::PosInfo(const PosInfo& from)
   if (from._internal_has_vector_info()) {
     _this->_impl_.vector_info_ = new ::Protocol::VectorInfo(*from._impl_.vector_info_);
   }
-  ::memcpy(&_impl_.object_id_, &from._impl_.object_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.yaw_) -
-    reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.yaw_));
+  _this->_impl_.yaw_ = from._impl_.yaw_;
   // @@protoc_insertion_point(copy_constructor:Protocol.PosInfo)
 }
 
@@ -541,7 +535,6 @@ inline void PosInfo::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.vector_info_){nullptr}
-    , decltype(_impl_.object_id_){uint64_t{0u}}
     , decltype(_impl_.yaw_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -575,9 +568,7 @@ void PosInfo::Clear() {
     delete _impl_.vector_info_;
   }
   _impl_.vector_info_ = nullptr;
-  ::memset(&_impl_.object_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.yaw_) -
-      reinterpret_cast<char*>(&_impl_.object_id_)) + sizeof(_impl_.yaw_));
+  _impl_.yaw_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -587,14 +578,6 @@ const char* PosInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint64 object_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.object_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // .Protocol.VectorInfo vector_info = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
@@ -640,12 +623,6 @@ uint8_t* PosInfo::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint64 object_id = 1;
-  if (this->_internal_object_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_object_id(), target);
-  }
-
   // .Protocol.VectorInfo vector_info = 2;
   if (this->_internal_has_vector_info()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -686,11 +663,6 @@ size_t PosInfo::ByteSizeLong() const {
         *_impl_.vector_info_);
   }
 
-  // uint64 object_id = 1;
-  if (this->_internal_object_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_object_id());
-  }
-
   // float yaw = 3;
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = this->_internal_yaw();
@@ -721,9 +693,6 @@ void PosInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   if (from._internal_has_vector_info()) {
     _this->_internal_mutable_vector_info()->::Protocol::VectorInfo::MergeFrom(
         from._internal_vector_info());
-  }
-  if (from._internal_object_id() != 0) {
-    _this->_internal_set_object_id(from._internal_object_id());
   }
   static_assert(sizeof(uint32_t) == sizeof(float), "Code assumes uint32_t and float are the same size.");
   float tmp_yaw = from._internal_yaw();
