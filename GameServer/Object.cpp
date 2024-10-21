@@ -4,11 +4,27 @@
 
 Object::Object()
 {
-	objectInfo = new Protocol::ObjectInfo();
-	posInfo = objectInfo->mutable_pos_info();
+	
 }
 
 Object::~Object()
 {
-	delete objectInfo;
+
+}
+
+Protocol::ObjectInfo Object::changeToPacket()
+{
+	Protocol::ObjectInfo object;
+	object.set_object_id(objectId);
+	object.set_object_type(objectType);
+
+	Protocol::PosInfo* pos = object.mutable_pos_info();
+	pos->set_yaw(yaw);
+
+	Protocol::VectorInfo* vector = pos->mutable_vector_info();
+	vector->set_x(position.x);
+	vector->set_y(position.y);
+	vector->set_z(position.z);
+
+	return object;
 }

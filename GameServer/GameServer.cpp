@@ -63,6 +63,7 @@ int main()
 
 	//Main Thread
 	//DoWorkerJob(service);
+	GRoom->DoTimer(100, &Room::UpdateTick);
 
 	while (true)
 	{

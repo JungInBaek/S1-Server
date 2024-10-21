@@ -1,4 +1,5 @@
 #pragma once
+#include "S1Vector.h"
 
 
 class Object : public enable_shared_from_this<Object>
@@ -10,9 +11,13 @@ public:
 	bool IsPlayer() { return _isPlayer; }
 	bool IsEnermy() { return _isEnermy; }
 
+	virtual Protocol::ObjectInfo changeToPacket();
+
 public:
-	Protocol::ObjectInfo* objectInfo;
-	Protocol::PosInfo* posInfo;
+	uint64 objectId;
+	Protocol::ObjectType objectType;
+	S1Vector position;
+	float yaw;
 
 public:
 	atomic<weak_ptr<class Room>> room;

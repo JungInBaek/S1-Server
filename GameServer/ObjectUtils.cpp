@@ -9,20 +9,17 @@
 atomic<int64> ObjectUtils::s_idGenerator = 1;
 
 
-PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session)
+PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session, Protocol::PlayerType playerType, int32 hp)
 {
 	const int64 newId = s_idGenerator.fetch_add(1);
 
 	PlayerRef player = ObjectPool<Player>::MakeShared();
-
-	player->objectInfo->set_object_id(newId);
-	player->objectInfo->set_object_type(Protocol::OBJECT_TYPE_CREATURE);
-
-	Protocol::CreatureInfo* creatureInfo = player->objectInfo->mutable_creature_info();
-	creatureInfo->set_creature_type(Protocol::CREATURE_TYPE_PLAYER);
-	
-	Protocol::PlayerInfo* playerInfo = player->objectInfo->mutable_player_info();
-	playerInfo->set_player_type(Protocol::PLAYER_TYPE_SURVIVOR);
+	player->objectId = newId;
+	player->objectType = Protocol::OBJECT_TYPE_CREATURE;
+	player->creatureType = Protocol::CREATURE_TYPE_PLAYER;
+	player->hp = hp;
+	player->playerType = playerType;
+	player->playerState = Protocol::PLAYER_STATE_IDLE;
 
 	player->session = session;
 	session->_player.store(player);
@@ -30,20 +27,17 @@ PlayerRef ObjectUtils::CreatePlayer(GameSessionRef session)
 	return player;
 }
 
-EnermyRef ObjectUtils::CreateEnermy()
+EnermyRef ObjectUtils::CreateEnermy(Protocol::EnermyType enermyType, int hp)
 {
 	const int64 newId = s_idGenerator.fetch_add(1);
 
 	EnermyRef enermy = ObjectPool<Enermy>::MakeShared();
-
-	enermy->objectInfo->set_object_id(newId);
-	enermy->objectInfo->set_object_type(Protocol::OBJECT_TYPE_CREATURE);
-
-	Protocol::CreatureInfo* creatureInfo = enermy->objectInfo->mutable_creature_info();
-	creatureInfo->set_creature_type(Protocol::CREATURE_TYPE_ENERMY);
-
-	Protocol::EnermyInfo* enermyInfo = enermy->objectInfo->mutable_enermy_info();
-	enermyInfo->set_enermy_type(Protocol::ENERMY_TYPE_ZOMBIE);
+	enermy->objectId = newId;
+	enermy->objectType = Protocol::OBJECT_TYPE_CREATURE;
+	enermy->creatureType = Protocol::CREATURE_TYPE_ENERMY;
+	enermy->hp = hp;
+	enermy->enermyType = enermyType;
+	enermy->enermyState = Protocol::ENERMY_STATE_IDLE;
 
 	return enermy;
 }

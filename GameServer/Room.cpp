@@ -5,6 +5,7 @@
 #include "GameSession.h"
 #include "GameSessionManager.h"
 #include "ObjectUtils.h"
+#include "VectorUtils.h"
 
 
 RoomRef GRoom = make_shared<Room>();
@@ -19,7 +20,7 @@ Room::~Room()
 
 void Room::Init()
 {
-	EnermyRef enermy = ObjectUtils::CreateEnermy();
+	EnermyRef enermy = ObjectUtils::CreateEnermy(Protocol::ENERMY_TYPE_ZOMBIE, 150);
 	EnterRoom(enermy);
 }
 
@@ -30,11 +31,11 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 	// 랜덤 위치
 	if (randPos)
 	{
-		Protocol::VectorInfo* vectorInfo = object->posInfo->mutable_vector_info();
-		vectorInfo->set_x(Utils::GetRandom(-500.0f, 500.f));
-		vectorInfo->set_y(Utils::GetRandom(-500.0f, 500.f));
-		vectorInfo->set_z(100.f);
-		object->posInfo->set_yaw(Utils::GetRandom(0.f, 100.f));
+		S1Vector position;
+		object->position.x = Utils::GetRandom(-500.0f, 500.f);
+		object->position.y = Utils::GetRandom(-500.0f, 500.f);
+		object->position.z = 89.65f;
+		object->yaw = Utils::GetRandom(0.f, 100.f);
 	}
 
 	// 접속 플레이어에게 입장 패킷 전송
@@ -44,11 +45,9 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 
 		Protocol::S_ENTER_GAME enterGamePkt;
 		enterGamePkt.set_success(success);
-
-		Protocol::ObjectInfo* objectInfo = new Protocol::ObjectInfo();
-		objectInfo->CopyFrom(*player->objectInfo);
-		enterGamePkt.set_allocated_player(objectInfo);
-		//enterGamePkt.release_player();	// Protobuf에서 해제 해주길 원하지 않는다면 사용
+		
+		Protocol::ObjectInfo* objectInfo = enterGamePkt.mutable_player();
+		objectInfo->CopyFrom(player->changeToPacket());
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(enterGamePkt);
 		if (auto session = player->session.lock())
@@ -63,11 +62,16 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 		PlayerRef player = static_pointer_cast<Player>(object);
 
 		Protocol::S_SPAWN spawnPkt;
-		for (std::pair<const uint64, ObjectRef>& object : _objects)
+		for (std::pair<const uint64, PlayerRef>& item : _players)
 		{
 			// 자기 자신의 Player(Object)는 클라이언트에서 예외 처리
 			Protocol::ObjectInfo* objectInfo = spawnPkt.add_objects();
-			objectInfo->CopyFrom(*object.second->objectInfo);
+			objectInfo->CopyFrom(item.second->changeToPacket());
+		}
+		for (std::pair<const uint64, EnermyRef>& item : _enermies)
+		{
+			Protocol::ObjectInfo* objectInfo = spawnPkt.add_objects();
+			objectInfo->CopyFrom(item.second->changeToPacket());
 		}
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
@@ -77,15 +81,28 @@ bool Room::EnterRoom(ObjectRef object, bool randPos)
 		}
 	}
 
-	// 기존에 입장한 플레이어들에게 새로운 Object의 스폰 패킷 전송
+	// 기존 플레이어들에게 새로운 Object의 스폰 패킷 전송
 	{
 		Protocol::S_SPAWN spawnPkt;
 
 		Protocol::ObjectInfo* objectInfo = spawnPkt.add_objects();
-		objectInfo->CopyFrom(*object->objectInfo);
+		if (object->IsPlayer())
+		{
+			PlayerRef player = static_pointer_cast<Player>(object);
+			objectInfo->CopyFrom(player->changeToPacket());
+		}
+		else if (object->IsEnermy())
+		{
+			EnermyRef enermy = static_pointer_cast<Enermy>(object);
+			objectInfo->CopyFrom(enermy->changeToPacket());
+		}
+		else
+		{
+			objectInfo->CopyFrom(object->changeToPacket());
+		}
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(spawnPkt);
-		Broadcast(sendBuffer, object->objectInfo->object_id());
+		Broadcast(sendBuffer, object->objectId);
 	}
 
 	return success;
@@ -98,7 +115,7 @@ bool Room::LeaveRoom(ObjectRef object)
 		return false;
 	}
 
-	const uint64 objectId = object->objectInfo->object_id();
+	const uint64 objectId = object->objectId;
 	bool success = RemoveObject(objectId);
 	if (!success)
 	{
@@ -191,15 +208,16 @@ void Room::HandleMove(Protocol::C_MOVE pkt)
 	{
 		// 적용
 		PlayerRef player = static_pointer_cast<Player>(_objects[objectId]);
-		player->posInfo->CopyFrom(pkt.info());
+		Protocol::VectorInfo vectorInfo = pkt.info().vector_info();
+		player->position = S1Vector(vectorInfo.x(), vectorInfo.y(), vectorInfo.z());
+		player->yaw = pkt.info().yaw();
 	}
 
 	// 이동
 	{
 		Protocol::S_MOVE movePkt;
 		movePkt.set_object_id(objectId);
-		Protocol::PosInfo* info = movePkt.mutable_info();
-		info->CopyFrom(pkt.info());
+		movePkt.mutable_info()->CopyFrom(pkt.info());
 
 		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(movePkt);
 		Broadcast(sendBuffer, objectId);
@@ -225,7 +243,7 @@ void Room::HandleState(Protocol::C_STATE pkt)
 
 void Room::HandleFire(PlayerRef player)
 {
-	const uint64 objectId = player->objectInfo->object_id();
+	const uint64 objectId = player->objectId;
 	Protocol::S_FIRE firePkt;
 	firePkt.set_object_id(objectId);
 	SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(firePkt);
@@ -257,7 +275,7 @@ void Room::UpdateTick()
 
 	// TODO: 게임 로직
 	// Enermy 로직
-	/*for (std::pair<const uint64, EnermyRef>& item : _enermies)
+	for (std::pair<const uint64, EnermyRef>& item : _enermies)
 	{
 		float min = FLT_MAX;
 		EnermyRef enermy = static_pointer_cast<Enermy>(item.second);
@@ -265,18 +283,46 @@ void Room::UpdateTick()
 		for (std::pair<const uint64, PlayerRef>& item : _players)
 		{
 			PlayerRef player = item.second;
-			Protocol::VectorInfo distanceVector;
-			distanceVector.set_x(enermy->posInfo->vector_info().x() - player->posInfo->vector_info().x());
-			distanceVector.set_y(enermy->posInfo->vector_info().y() - player->posInfo->vector_info().y());
-			distanceVector.set_z(enermy->posInfo->vector_info().z() - player->posInfo->vector_info().z());
-			float distance = distanceVector.x() + distanceVector.y() + distanceVector.z();
+			float distance = VectorUtils::Distance(player->position, enermy->position);
 			if (min > distance)
 			{
 				min = distance;
-				enermy->target = player;
+				enermy->targetPlayer = player;
 			}
 		}
-	}*/
+
+		if (enermy->targetPlayer.lock())
+		{
+			switch (enermy->enermyState)
+			{
+			case Protocol::ENERMY_STATE_IDLE:
+				enermy->IdleState();
+				break;
+			case Protocol::ENERMY_STATE_MOVE:
+				enermy->MoveState();
+				break;
+			case Protocol::ENERMY_STATE_ATTACK:
+				enermy->AttackState();
+				break;
+			case Protocol::ENERMY_STATE_DAMAGE:
+				enermy->DamageState();
+				break;
+			case Protocol::ENERMY_STATE_DIE:
+				enermy->DieState();
+				break;
+			}
+		}
+
+		Protocol::S_ENERMY_INFO enermyPacket;
+		enermyPacket.mutable_objectinfo()->CopyFrom(enermy->changeToPacket());
+		if (enermy->targetPlayer.lock())
+		{
+			enermyPacket.set_target_id(enermy->targetPlayer.lock()->objectId);
+		}
+
+		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(enermyPacket);
+		Broadcast(sendBuffer);
+	}
 
 	DoTimer(100, &Room::UpdateTick);
 }
@@ -288,13 +334,23 @@ RoomRef Room::GetRoomRef()
 
 bool Room::AddObject(ObjectRef object)
 {
-	if (_objects.find(object->objectInfo->object_id()) != _objects.end())
+	if (_objects.find(object->objectId) != _objects.end())
 	{
 		return false;
 	}
 
-	_objects.insert(make_pair(object->objectInfo->object_id(), object));
+	_objects.insert(make_pair(object->objectId, object));
 	object->room.store(GetRoomRef());
+
+	if (object->IsPlayer())
+	{
+		_players.insert(make_pair(object->objectId, static_pointer_cast<Player>(object)));
+	}
+
+	if (object->IsEnermy())
+	{
+		_enermies.insert(make_pair(object->objectId, static_pointer_cast<Enermy>(object)));
+	}
 
 	return true;
 }
@@ -315,6 +371,16 @@ bool Room::RemoveObject(uint64 objectId)
 
 	_objects.erase(objectId);
 
+	if (object->IsPlayer())
+	{
+		_players.erase(objectId);
+	}
+
+	if (object->IsEnermy())
+	{
+		_enermies.erase(objectId);
+	}
+
 	return true;
 }
 
@@ -328,7 +394,7 @@ void Room::Broadcast(SendBufferRef sendBuffer, uint64 exceptId)
 			continue;
 		}
 
-		if (player->objectInfo->object_id() == exceptId)
+		if (player->objectId == exceptId)
 		{
 			continue;
 		}

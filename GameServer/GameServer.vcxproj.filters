@@ -69,6 +69,12 @@
     <ClCompile Include="Enermy.cpp">
       <Filter>GameContents\Object</Filter>
     </ClCompile>
+    <ClCompile Include="VectorUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="S1Vector.cpp">
+      <Filter>GameContents\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -117,6 +123,12 @@
       <Filter>GameContents\Object</Filter>
     </ClInclude>
     <ClInclude Include="Enermy.h">
+      <Filter>GameContents\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="S1Vector.h">
       <Filter>GameContents\Object</Filter>
     </ClInclude>
   </ItemGroup>

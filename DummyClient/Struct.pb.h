@@ -415,154 +415,6 @@ class PosInfo final :
 };
 // -------------------------------------------------------------------
 
-class CreatureInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CreatureInfo) */ {
- public:
-  inline CreatureInfo() : CreatureInfo(nullptr) {}
-  ~CreatureInfo() override;
-  explicit PROTOBUF_CONSTEXPR CreatureInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CreatureInfo(const CreatureInfo& from);
-  CreatureInfo(CreatureInfo&& from) noexcept
-    : CreatureInfo() {
-    *this = ::std::move(from);
-  }
-
-  inline CreatureInfo& operator=(const CreatureInfo& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CreatureInfo& operator=(CreatureInfo&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const CreatureInfo& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CreatureInfo* internal_default_instance() {
-    return reinterpret_cast<const CreatureInfo*>(
-               &_CreatureInfo_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(CreatureInfo& a, CreatureInfo& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CreatureInfo* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CreatureInfo* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CreatureInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CreatureInfo>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const CreatureInfo& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const CreatureInfo& from) {
-    CreatureInfo::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CreatureInfo* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.CreatureInfo";
-  }
-  protected:
-  explicit CreatureInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kCreatureTypeFieldNumber = 1,
-  };
-  // .Protocol.CreatureType creature_type = 1;
-  void clear_creature_type();
-  ::Protocol::CreatureType creature_type() const;
-  void set_creature_type(::Protocol::CreatureType value);
-  private:
-  ::Protocol::CreatureType _internal_creature_type() const;
-  void _internal_set_creature_type(::Protocol::CreatureType value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.CreatureInfo)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    int creature_type_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Struct_2eproto;
-};
-// -------------------------------------------------------------------
-
 class PlayerInfo final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.PlayerInfo) */ {
  public:
@@ -611,7 +463,7 @@ class PlayerInfo final :
                &_PlayerInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(PlayerInfo& a, PlayerInfo& b) {
     a.Swap(&b);
@@ -770,7 +622,7 @@ class EnermyInfo final :
                &_EnermyInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(EnermyInfo& a, EnermyInfo& b) {
     a.Swap(&b);
@@ -874,6 +726,165 @@ class EnermyInfo final :
   struct Impl_ {
     int enermy_type_;
     int enermy_state_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Struct_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreatureInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CreatureInfo) */ {
+ public:
+  inline CreatureInfo() : CreatureInfo(nullptr) {}
+  ~CreatureInfo() override;
+  explicit PROTOBUF_CONSTEXPR CreatureInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreatureInfo(const CreatureInfo& from);
+  CreatureInfo(CreatureInfo&& from) noexcept
+    : CreatureInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline CreatureInfo& operator=(const CreatureInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreatureInfo& operator=(CreatureInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CreatureInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreatureInfo* internal_default_instance() {
+    return reinterpret_cast<const CreatureInfo*>(
+               &_CreatureInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(CreatureInfo& a, CreatureInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreatureInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreatureInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CreatureInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CreatureInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CreatureInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CreatureInfo& from) {
+    CreatureInfo::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreatureInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CreatureInfo";
+  }
+  protected:
+  explicit CreatureInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCreatureTypeFieldNumber = 1,
+    kHpFieldNumber = 2,
+  };
+  // .Protocol.CreatureType creature_type = 1;
+  void clear_creature_type();
+  ::Protocol::CreatureType creature_type() const;
+  void set_creature_type(::Protocol::CreatureType value);
+  private:
+  ::Protocol::CreatureType _internal_creature_type() const;
+  void _internal_set_creature_type(::Protocol::CreatureType value);
+  public:
+
+  // int32 hp = 2;
+  void clear_hp();
+  int32_t hp() const;
+  void set_hp(int32_t value);
+  private:
+  int32_t _internal_hp() const;
+  void _internal_set_hp(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.CreatureInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int creature_type_;
+    int32_t hp_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1305,30 +1316,6 @@ inline void PosInfo::set_yaw(float value) {
 
 // -------------------------------------------------------------------
 
-// CreatureInfo
-
-// .Protocol.CreatureType creature_type = 1;
-inline void CreatureInfo::clear_creature_type() {
-  _impl_.creature_type_ = 0;
-}
-inline ::Protocol::CreatureType CreatureInfo::_internal_creature_type() const {
-  return static_cast< ::Protocol::CreatureType >(_impl_.creature_type_);
-}
-inline ::Protocol::CreatureType CreatureInfo::creature_type() const {
-  // @@protoc_insertion_point(field_get:Protocol.CreatureInfo.creature_type)
-  return _internal_creature_type();
-}
-inline void CreatureInfo::_internal_set_creature_type(::Protocol::CreatureType value) {
-  
-  _impl_.creature_type_ = value;
-}
-inline void CreatureInfo::set_creature_type(::Protocol::CreatureType value) {
-  _internal_set_creature_type(value);
-  // @@protoc_insertion_point(field_set:Protocol.CreatureInfo.creature_type)
-}
-
-// -------------------------------------------------------------------
-
 // PlayerInfo
 
 // .Protocol.PlayerType player_type = 1;
@@ -1413,6 +1400,50 @@ inline void EnermyInfo::_internal_set_enermy_state(::Protocol::EnermyState value
 inline void EnermyInfo::set_enermy_state(::Protocol::EnermyState value) {
   _internal_set_enermy_state(value);
   // @@protoc_insertion_point(field_set:Protocol.EnermyInfo.enermy_state)
+}
+
+// -------------------------------------------------------------------
+
+// CreatureInfo
+
+// .Protocol.CreatureType creature_type = 1;
+inline void CreatureInfo::clear_creature_type() {
+  _impl_.creature_type_ = 0;
+}
+inline ::Protocol::CreatureType CreatureInfo::_internal_creature_type() const {
+  return static_cast< ::Protocol::CreatureType >(_impl_.creature_type_);
+}
+inline ::Protocol::CreatureType CreatureInfo::creature_type() const {
+  // @@protoc_insertion_point(field_get:Protocol.CreatureInfo.creature_type)
+  return _internal_creature_type();
+}
+inline void CreatureInfo::_internal_set_creature_type(::Protocol::CreatureType value) {
+  
+  _impl_.creature_type_ = value;
+}
+inline void CreatureInfo::set_creature_type(::Protocol::CreatureType value) {
+  _internal_set_creature_type(value);
+  // @@protoc_insertion_point(field_set:Protocol.CreatureInfo.creature_type)
+}
+
+// int32 hp = 2;
+inline void CreatureInfo::clear_hp() {
+  _impl_.hp_ = 0;
+}
+inline int32_t CreatureInfo::_internal_hp() const {
+  return _impl_.hp_;
+}
+inline int32_t CreatureInfo::hp() const {
+  // @@protoc_insertion_point(field_get:Protocol.CreatureInfo.hp)
+  return _internal_hp();
+}
+inline void CreatureInfo::_internal_set_hp(int32_t value) {
+  
+  _impl_.hp_ = value;
+}
+inline void CreatureInfo::set_hp(int32_t value) {
+  _internal_set_hp(value);
+  // @@protoc_insertion_point(field_set:Protocol.CreatureInfo.hp)
 }
 
 // -------------------------------------------------------------------

@@ -104,7 +104,8 @@ inline bool CreatureType_Parse(
 }
 enum PlayerType : int {
   PLAYER_TYPE_NONE = 0,
-  PLAYER_TYPE_SURVIVOR = 1,
+  PLAYER_TYPE_ADMIN = 1,
+  PLAYER_TYPE_SURVIVOR = 2,
   PlayerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PlayerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };

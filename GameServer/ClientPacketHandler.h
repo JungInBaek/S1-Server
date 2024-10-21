@@ -26,14 +26,15 @@ enum : uint16
 	PKT_S_MOVE = 1013,
 	PKT_C_STATE = 1014,
 	PKT_S_STATE = 1015,
-	PKT_C_CHAT = 1016,
-	PKT_S_CHAT = 1017,
-	PKT_C_FIRE = 1018,
-	PKT_S_FIRE = 1019,
-	PKT_C_SNIPER_FIRE = 1020,
-	PKT_S_SNIPER_FIRE = 1021,
-	PKT_C_CHANGE_ITEM = 1022,
-	PKT_S_CHANGE_ITEM = 1023,
+	PKT_S_ENERMY_INFO = 1016,
+	PKT_C_CHAT = 1017,
+	PKT_S_CHAT = 1018,
+	PKT_C_FIRE = 1019,
+	PKT_S_FIRE = 1020,
+	PKT_C_SNIPER_FIRE = 1021,
+	PKT_S_SNIPER_FIRE = 1022,
+	PKT_C_CHANGE_ITEM = 1023,
+	PKT_S_CHANGE_ITEM = 1024,
 };
 
 // Custom Handler
@@ -87,6 +88,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_JUMP& pkt) { return MakeSendBuffer(pkt, PKT_S_JUMP); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_MOVE& pkt) { return MakeSendBuffer(pkt, PKT_S_MOVE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_STATE& pkt) { return MakeSendBuffer(pkt, PKT_S_STATE); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_ENERMY_INFO& pkt) { return MakeSendBuffer(pkt, PKT_S_ENERMY_INFO); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_S_CHAT); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_S_FIRE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_SNIPER_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_S_SNIPER_FIRE); }
