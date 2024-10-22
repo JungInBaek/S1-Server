@@ -41,20 +41,35 @@ void Enermy::MoveState()
 	const S1Vector& currentLocation = this->position;
 	const S1Vector& destLocation = targetPlayer.lock()->position;
 
-	S1Vector dir = VectorUtils::Sub(destLocation, currentLocation);
+	S1Vector dir = destLocation - currentLocation;
 	float size = VectorUtils::Size(dir);
+
+	float dirX = dir.x * 0.1f;
+	float dirY = dir.y * 0.1f;
+	float dirZ = dir.z * 0.1f;
+
 	VectorUtils::Normalize(dir);
 
-	S1Vector nextLocation;
+	float distanceX = dir.x * runSpeed * 0.1f;
+	float distanceY = dir.y * runSpeed * 0.1f;
+	float distanceZ = dir.z * runSpeed * 0.1f;
+	
+	distanceX = min(dirX, distanceX);
+	distanceY = min(dirY, distanceY);
+	distanceZ = min(dirZ, distanceZ);
+
+	S1Vector nextLocation(currentLocation.x + distanceX, currentLocation.y + distanceY, currentLocation.z + distanceZ);
+	this->position = nextLocation;
+
+	/*S1Vector nextLocation;
 	nextLocation.x = currentLocation.x + (dir.x * runSpeed * 0.1f);
 	nextLocation.y = currentLocation.y + (dir.y * runSpeed * 0.1f);
-	nextLocation.z = currentLocation.z + (dir.z * runSpeed * 0.1f);
+	nextLocation.z = currentLocation.z + (dir.z * runSpeed * 0.1f);*/
 	//nextLocation.z = 89.65;
 
 	cout.precision(6);
 	cout << "x: " << nextLocation.x << "  y: " << nextLocation.y << "  z: " << nextLocation.z << endl;
 	
-	this->position = nextLocation;
 	
 	if (size <= attackRange)
 	{
