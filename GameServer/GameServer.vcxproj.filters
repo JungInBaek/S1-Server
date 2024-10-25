@@ -73,7 +73,13 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="S1Vector.cpp">
-      <Filter>GameContents\Object</Filter>
+      <Filter>GameContents</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>GameContents</Filter>
+    </ClCompile>
+    <ClCompile Include="S1Node.cpp">
+      <Filter>GameContents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +135,13 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="S1Vector.h">
-      <Filter>GameContents\Object</Filter>
+      <Filter>GameContents</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>GameContents</Filter>
+    </ClInclude>
+    <ClInclude Include="S1Node.h">
+      <Filter>GameContents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

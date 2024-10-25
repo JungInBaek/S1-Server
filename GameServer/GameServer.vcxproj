@@ -189,6 +189,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectUtils.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -204,6 +205,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </ClCompile>
     <ClCompile Include="ClientPacketHandler.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="S1Node.cpp" />
     <ClCompile Include="Struct.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -224,11 +226,13 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectUtils.h" />
+    <ClInclude Include="PathFinder.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Protocol.pb.h" />
     <ClInclude Include="ClientPacketHandler.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="S1Node.h" />
     <ClInclude Include="Struct.pb.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="S1Vector.h" />
