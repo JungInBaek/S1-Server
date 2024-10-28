@@ -6,12 +6,14 @@
 #include "GameSessionManager.h"
 #include "ObjectUtils.h"
 #include "VectorUtils.h"
+#include "PathFinder.h"
 
 
-RoomRef GRoom = make_shared<Room>();
+RoomRef GRoom = MakeShared<Room>();
 
 Room::Room()
 {
+	pathFinder = MakeShared<PathFinder>();
 }
 
 Room::~Room()
@@ -20,6 +22,24 @@ Room::~Room()
 
 void Room::Init()
 {
+	pathFinder->ReadFile();
+	auto start = S1Vector(-3500.f, -3400.f, 0.f);
+	auto end = S1Vector(-3100.f, -3200.f, 0.f);
+	auto path = pathFinder->AStar(start, end);
+
+	for (auto p : path)
+	{
+		cout << "(" << p.x << ", " << p.y << ", " << p.z << ")";
+		if (path.back() != p)
+		{
+			cout << " -> ";
+		}
+		else
+		{
+			cout << endl;
+		}
+	}
+
 	EnermyRef enermy = ObjectUtils::CreateEnermy(Protocol::ENERMY_TYPE_ZOMBIE, 150);
 	EnterRoom(enermy);
 }

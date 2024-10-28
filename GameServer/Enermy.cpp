@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Room.h"
 #include "VectorUtils.h"
+#include "PathFinder.h"
 
 
 Enermy::Enermy()
@@ -38,13 +39,21 @@ void Enermy::IdleState()
 
 void Enermy::MoveState()
 {
-	const S1Vector& currentLocation = this->position;
-	const S1Vector& destLocation = targetPlayer.lock()->position;
+	S1Vector currentLocation = this->position;
+	S1Vector destLocation = targetPlayer.lock()->position;
 
 	S1Vector dir = destLocation - currentLocation;
 	float size = VectorUtils::Size(dir);
 
-	float dirX = dir.x * 0.1f;
+	currentLocation.x = GRoom->pathFinder->GetApproximationValue(currentLocation.x);
+	currentLocation.y = GRoom->pathFinder->GetApproximationValue(currentLocation.y);
+	currentLocation.z = 0;
+
+	destLocation.x = GRoom->pathFinder->GetApproximationValue(destLocation.x);
+	destLocation.y = GRoom->pathFinder->GetApproximationValue(destLocation.y);
+	destLocation.z = 0;
+
+	/*float dirX = dir.x * 0.1f;
 	float dirY = dir.y * 0.1f;
 	float dirZ = dir.z * 0.1f;
 
@@ -59,7 +68,7 @@ void Enermy::MoveState()
 	distanceZ = min(dirZ, distanceZ);
 
 	S1Vector nextLocation(currentLocation.x + distanceX, currentLocation.y + distanceY, currentLocation.z + distanceZ);
-	this->position = nextLocation;
+	this->position = nextLocation;*/
 
 	/*S1Vector nextLocation;
 	nextLocation.x = currentLocation.x + (dir.x * runSpeed * 0.1f);
@@ -67,14 +76,37 @@ void Enermy::MoveState()
 	nextLocation.z = currentLocation.z + (dir.z * runSpeed * 0.1f);*/
 	//nextLocation.z = 89.65;
 
-	cout.precision(6);
-	cout << "x: " << nextLocation.x << "  y: " << nextLocation.y << "  z: " << nextLocation.z << endl;
+	/*cout.precision(6);
+	cout << "x: " << nextLocation.x << "  y: " << nextLocation.y << "  z: " << nextLocation.z << endl;*/
 	
 	
 	if (size <= attackRange)
 	{
 		this->enermyState = Protocol::ENERMY_STATE_ATTACK;
+		return;
 	}
+
+	if (pathIndex == path.size())
+	{
+		path = GRoom->pathFinder->AStar(currentLocation, destLocation);
+		pathIndex = 0;
+
+		/*for (auto p : path)
+		{
+			cout << "(" << p.x << ", " << p.y << ", " << p.z << ")";
+			if (path.back() != p)
+			{
+				cout << " -> ";
+			}
+			else
+			{
+				cout << endl;
+			}
+		}*/
+	}
+
+	this->position = path[pathIndex++];
+	this->position.z = 89.65;
 }
 
 void Enermy::AttackState()

@@ -23,6 +23,8 @@ public:
 	Protocol::EnermyState enermyState = Protocol::ENERMY_STATE_NONE;
 
 	weak_ptr<class Player> targetPlayer;
+	Vector<S1Vector> path;
+	int32 pathIndex = 0;
 
 	uint64 startTime = ::GetTickCount64();
 	uint64 elapsedTime = 0;

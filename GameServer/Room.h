@@ -40,6 +40,9 @@ public:
 	unordered_map<uint64, ObjectRef> _objects;
 	unordered_map<uint64, PlayerRef> _players;
 	unordered_map<uint64, EnermyRef> _enermies;
+
+public:
+	PathFinderRef pathFinder;
 };
 
 

@@ -1,13 +1,14 @@
 #pragma once
 #include "S1Vector.h"
 
+USING_SHARED_PTR(S1Node);
 
 class S1Node
 {
 public:
 	S1Node();
-	S1Node(const S1Node& parent);
-	S1Node(const S1Vector& position, float GCost, float HCost, S1Node* parent);
+	S1Node(const S1Vector& position, float GCost, float HCost);
+	~S1Node();
 
 	bool operator>(const S1Node& other) const
 	{
@@ -20,6 +21,6 @@ public:
 	S1Vector position;
 	float GCost;
 	float HCost;
-	S1Node* parent;
+	S1NodeRef parent;
 };
 

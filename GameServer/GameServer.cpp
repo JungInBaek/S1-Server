@@ -13,7 +13,6 @@
 #include "XmlParser.h"
 #include "DBSynchronizer.h"
 #include "GenProcedures.h"
-#include "PathFinder.h"
 
 
 enum
@@ -64,23 +63,7 @@ int main()
 	//Main Thread
 	//DoWorkerJob(service);
 	//GRoom->DoTimer(100, &Room::UpdateTick);
-	//GRoom->DoAsync(&Room::UpdateTick);
-
-	shared_ptr<PathFinder> pf = MakeShared<PathFinder>();
-	//pf->DoAsync(&PathFinder::ReadFile);
-	pf->ReadFile();
-	auto start = S1Vector(-3500.f, -3400.f, 0.f);
-	auto end = S1Vector(-3100.f, -3200.f, 0.f);
-	auto path = pf->AStar(start, end, pf->EdgeMap);
-
-	for (auto p : path)
-	{
-		cout << "(" << p.x << ", " << p.y << ", " << p.z << ")";
-		if (path.back() != p)
-		{
-			cout << " -> ";
-		}
-	}
+	GRoom->DoAsync(&Room::UpdateTick);
 
 	while (true)
 	{
