@@ -6,7 +6,7 @@
 #include "PathFinder.h"
 
 
-Vector<S1Vector> PathFinder::AStar(const S1Vector& start, const S1Vector& goal/*, Map<S1Vector, Vector<S1Vector>>& edges*/)
+Vector<S1Vector> PathFinder::AStar(const S1Vector& start, const S1Vector& goal)
 {
     if (!IsRead)
     {
@@ -14,14 +14,58 @@ Vector<S1Vector> PathFinder::AStar(const S1Vector& start, const S1Vector& goal/*
         return {};
     }
 
-    PriorityQueue<S1NodeRef, Vector<S1NodeRef>, greater<S1NodeRef>> open;
+    if (nodeMap[goal] != 1)
+    {
+        cout << "갈 수 없는 위치입니다" << endl;
+        return {};
+    }
+
+    enum
+    {
+        DIR_COUNT = 8
+    };
+
+	Vector<S1Vector> directions =
+	{
+		{ 1, 0, 0 },
+		{ 0, 1, 0 },
+		{ 0, -1, 0 },
+		{ -1, 0, 0 },
+		{ 1, 1, 0 },
+		{ -1, 1, 0 },
+		{ -1, -1, 0 },
+		{ 1, -1, 0 }
+	};
+
+    Vector<int32> cost =
+    {
+        10,
+        10,
+        10,
+        10,
+        14,
+        14,
+        14,
+        14,
+    };
+
     HashSet<S1Vector> closed;
+    HashMap<S1Vector, int32> best;
+    HashMap<S1Vector, S1Vector> parent;
+    PriorityQueue<S1NodeRef, Vector<S1NodeRef>, greater<S1NodeRef>> open;
 
     // 맨해튼 거리 계산
-    S1NodeRef startNode = ObjectPool<S1Node>::MakeShared(start, 0, abs(goal.x - start.x) + abs(goal.y - start.y) + abs(goal.z - start.z));
+    S1NodeRef startNode;
+    {
+		int32 g = 0;
+		int32 h = (abs(goal.x - start.x) + abs(goal.y - start.y) + abs(goal.z - start.z)) * 10;
+        startNode = ObjectPool<S1Node>::MakeShared(start, g, h);
+    }
     // 유클리드 거리 계산
     //S1Node startNode(start, 0, abs(goal.x - start.x) + abs(goal.y - start.y) + abs(goal.z - start.z), nullptr);
 
+    best[start] = startNode->FCost();
+    parent[start] = start;
     open.push(startNode);
 
     cout << "A* 실행" << endl;
@@ -31,64 +75,75 @@ Vector<S1Vector> PathFinder::AStar(const S1Vector& start, const S1Vector& goal/*
         S1NodeRef current = open.top();
         open.pop();
 
-        if (current->position == goal)
+        // 이미 방문된 경우 스킵
+		if (closed.find(current->position) != closed.end())
+		{
+			continue;
+		}
+        if (best[current->position] < current->FCost())
         {
-            // 경로 역추적
-            Vector<S1Vector> path;
-            S1NodeRef pathNode = current;
-
-            while (pathNode != nullptr)
-            {
-                path.push_back(pathNode->position);
-                pathNode = pathNode->parent;
-            }
-
-            reverse(path.begin(), path.end());
-            cout << "A* 성공" << endl;
-            return path;
+            continue;
         }
 
+        // 방문
         closed.insert(current->position);
 
-        for (const S1Vector& neighbor : edgeMap[current->position])
+        // 목적지 도착
+        if (current->position == goal)
         {
-            if (closed.find(neighbor) != closed.end())
+            break;
+        }
+
+        for (int32 dir = 0; dir < DIR_COUNT; dir++)
+        {
+			S1Vector next = current->position + (directions[dir] * 100);
+
+            // 갈 수 없으면 스킵
+            if (nodeMap[next] != 1)
+            {
+                continue;
+            }
+            // 이미 방문했으면 스킵
+            if (closed.find(next) != closed.end())
             {
                 continue;
             }
 
-            /*float tentativeG = current.GCost + ManhattenDistance(current.position, neighbor);
+			int32 g = current->GCost + cost[dir];
+			int32 h = (abs(goal.x - next.x) + abs(goal.y - next.y) + abs(goal.z - next.z)) * 10;
 
-            if (allNodes.find(neighbor) == allNodes.end())
+            if (best.find(next) != best.end() && best[next] <= g + h)
             {
-                S1Node* neighborNode = new S1Node(neighbor, tentativeG, ManhattanDistance(neighbor, goal), new S1Node(current));
-                open.push(*neighborNode);
-                allNodes[neighbor] = neighborNode;
+                continue;
             }
-            else
-            {
-                S1Node* neighborNode = allNodes[neighbor];
-                if (tentativeG < neighborNode->GCost)
-                {
-                    neighborNode->GCost = tentativeG;
-                    neighborNode->parent = new S1Node(current);
-                    open.push(*neighborNode);
-                }
-            }*/
 
-            float tempG = current->GCost + abs(neighbor.x - current->position.x) + abs(neighbor.y - current->position.y) + abs(neighbor.z - current->position.z);
-            //float tempG = current.GCost + sqrt(pow(neighbor.x - current.position.x, 2) + pow(neighbor.y - current.position.y, 2) + pow(neighbor.z - current.position.z, 2));
-            float heuristic = abs(goal.x - neighbor.x) + abs(goal.y - neighbor.y) + abs(goal.z - neighbor.z);
-            //float heuristic = sqrt(pow(goal.x - neighbor.x, 2) + pow(goal.y - neighbor.y, 2) + pow(goal.z - neighbor.z, 2));
+			best[next] = g + h;
+			parent[next] = current->position;
 
-            S1NodeRef neighborNode = ObjectPool<S1Node>::MakeShared(neighbor, tempG, heuristic);
-            neighborNode->parent = current;
-            open.push(neighborNode);
+			S1NodeRef nextNode = ObjectPool<S1Node>::MakeShared(next, g, h);
+			open.push(nextNode);
         }
     }
 
-    cout << "A* 실패" << endl;
-    return {};
+    // 경로 역추적
+    Vector<S1Vector> path;
+
+    S1Vector pos = goal;
+    while (true)
+    {
+        path.push_back(pos);
+        
+		if (pos == parent[pos])
+		{
+			break;
+		}
+
+        pos = parent[pos];
+    }
+
+    reverse(path.begin(), path.end());
+    cout << "A* 성공" << endl;
+    return path;
 }
 
 void PathFinder::ReadFile()
@@ -110,12 +165,12 @@ void PathFinder::ReadFile()
         if (line.substr(0, 4) == "Key:")
         {
             currentKey = parseToS1Vector(line.substr(4));
-            edgeMap[currentKey];
+            nodeMap[currentKey];
         }
         else if (line.substr(0, 6) == "Value:")
         {
-            S1Vector value = parseToS1Vector(line.substr(6));
-            edgeMap[currentKey].push_back(value);
+            int32 value = parseToInt32(line.substr(6));
+            nodeMap[currentKey] = value;
         }
     }
     IsRead = true;
@@ -141,4 +196,11 @@ S1Vector PathFinder::parseToS1Vector(const string& str)
     S1Vector vector;
     sscanf_s(str.c_str(), "(%f,%f,%f)", &vector.x, &vector.y, &vector.z);
     return vector;
+}
+
+int32 PathFinder::parseToInt32(const string& str)
+{
+    int32 value;
+	sscanf_s(str.c_str(), "%d", &value);
+    return value;
 }

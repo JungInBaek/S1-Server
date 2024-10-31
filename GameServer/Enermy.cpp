@@ -4,6 +4,7 @@
 #include "Room.h"
 #include "VectorUtils.h"
 #include "PathFinder.h"
+#include "math.h"
 
 
 Enermy::Enermy()
@@ -90,7 +91,6 @@ void Enermy::MoveState()
 	{
 		path = GRoom->pathFinder->AStar(currentLocation, destLocation);
 		pathIndex = 0;
-
 		/*for (auto p : path)
 		{
 			cout << "(" << p.x << ", " << p.y << ", " << p.z << ")";
@@ -105,8 +105,15 @@ void Enermy::MoveState()
 		}*/
 	}
 
+	if (path.empty())
+	{
+		cout << "경로 없음" << endl;
+		return;
+	}
+
+	//this->yaw = dirYaw;
 	this->position = path[pathIndex++];
-	this->position.z = 89.65;
+	this->position.z += 89.65;
 }
 
 void Enermy::AttackState()

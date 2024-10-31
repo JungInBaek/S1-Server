@@ -29,6 +29,7 @@ USING_SHARED_PTR(Creature);
 USING_SHARED_PTR(Monster);
 USING_SHARED_PTR(Enermy);
 USING_SHARED_PTR(PathFinder);
+USING_SHARED_PTR(S1Node);
 
 
 #define SEND_PACKET(pkt)													\

@@ -14,5 +14,5 @@ S1Node::S1Node(const S1Vector& position, float GCost, float HCost)
 S1Node::~S1Node()
 {
 	//cout << "~S1Node" << endl;
-	parent = shared_ptr<S1Node>();
+	//parent = shared_ptr<S1Node>();
 }
