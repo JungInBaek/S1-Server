@@ -198,3 +198,24 @@ bool Handle_C_CHANGE_ITEM(PacketSessionRef& session, Protocol::C_CHANGE_ITEM& pk
 
 	return true;
 }
+
+bool Handle_C_DAMAGE_ENERMY(PacketSessionRef& session, Protocol::C_DAMAGE_ENERMY& pkt)
+{
+	GameSessionRef gameSession = static_pointer_cast<GameSession>(session);
+
+	PlayerRef player = gameSession->_player.load();
+	if (player == nullptr)
+	{
+		return false;
+	}
+	
+	RoomRef room = player->room.load().lock();
+	if (room == nullptr)
+	{
+		return false;
+	}
+
+	room->DoAsync(&Room::HandleDamageEnermy, pkt);
+
+	return true;
+}

@@ -35,6 +35,7 @@ enum : uint16
 	PKT_S_SNIPER_FIRE = 1022,
 	PKT_C_CHANGE_ITEM = 1023,
 	PKT_S_CHANGE_ITEM = 1024,
+	PKT_C_DAMAGE_ENERMY = 1025,
 };
 
 // Custom Handler
@@ -50,6 +51,7 @@ bool Handle_C_CHAT(PacketSessionRef& session, Protocol::C_CHAT& pkt);
 bool Handle_C_FIRE(PacketSessionRef& session, Protocol::C_FIRE& pkt);
 bool Handle_C_SNIPER_FIRE(PacketSessionRef& session, Protocol::C_SNIPER_FIRE& pkt);
 bool Handle_C_CHANGE_ITEM(PacketSessionRef& session, Protocol::C_CHANGE_ITEM& pkt);
+bool Handle_C_DAMAGE_ENERMY(PacketSessionRef& session, Protocol::C_DAMAGE_ENERMY& pkt);
 
 
 class ClientPacketHandler
@@ -72,6 +74,7 @@ public:
 		GPacketHandler[PKT_C_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_FIRE>(Handle_C_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_C_SNIPER_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_SNIPER_FIRE>(Handle_C_SNIPER_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_C_CHANGE_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_CHANGE_ITEM>(Handle_C_CHANGE_ITEM, session, buffer, len); };
+		GPacketHandler[PKT_C_DAMAGE_ENERMY] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_DAMAGE_ENERMY>(Handle_C_DAMAGE_ENERMY, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionRef& session, BYTE* buffer, int32 len)

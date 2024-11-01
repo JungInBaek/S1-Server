@@ -31,5 +31,6 @@ public:
 	uint64 idleDelayTime = 2000;
 	uint64 attackDelayTime = 2000;
 	uint64 damageDelayTime = 2000;
+	uint64 dieDelayTime = 5000;
 };
 

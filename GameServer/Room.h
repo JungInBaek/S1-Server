@@ -25,6 +25,7 @@ public:
 	void HandleFire(PlayerRef player);
 	void HandleChangeItem(Protocol::C_CHANGE_ITEM pkt);
 	void HandleSniperFire(Protocol::C_SNIPER_FIRE pkt);
+	void HandleDamageEnermy(Protocol::C_DAMAGE_ENERMY pkt);
 
 public:
 	RoomRef GetRoomRef();

@@ -54,33 +54,6 @@ void Enermy::MoveState()
 	destLocation.y = GRoom->pathFinder->GetApproximationValue(destLocation.y);
 	destLocation.z = 0;
 
-	/*float dirX = dir.x * 0.1f;
-	float dirY = dir.y * 0.1f;
-	float dirZ = dir.z * 0.1f;
-
-	VectorUtils::Normalize(dir);
-
-	float distanceX = dir.x * runSpeed * 0.1f;
-	float distanceY = dir.y * runSpeed * 0.1f;
-	float distanceZ = dir.z * runSpeed * 0.1f;
-	
-	distanceX = min(dirX, distanceX);
-	distanceY = min(dirY, distanceY);
-	distanceZ = min(dirZ, distanceZ);
-
-	S1Vector nextLocation(currentLocation.x + distanceX, currentLocation.y + distanceY, currentLocation.z + distanceZ);
-	this->position = nextLocation;*/
-
-	/*S1Vector nextLocation;
-	nextLocation.x = currentLocation.x + (dir.x * runSpeed * 0.1f);
-	nextLocation.y = currentLocation.y + (dir.y * runSpeed * 0.1f);
-	nextLocation.z = currentLocation.z + (dir.z * runSpeed * 0.1f);*/
-	//nextLocation.z = 89.65;
-
-	/*cout.precision(6);
-	cout << "x: " << nextLocation.x << "  y: " << nextLocation.y << "  z: " << nextLocation.z << endl;*/
-	
-	
 	if (size <= attackRange)
 	{
 		this->enermyState = Protocol::ENERMY_STATE_ATTACK;
@@ -111,9 +84,8 @@ void Enermy::MoveState()
 		return;
 	}
 
-	//this->yaw = dirYaw;
 	this->position = path[pathIndex++];
-	this->position.z += 89.65;
+	this->position.z += 89.65f;
 }
 
 void Enermy::AttackState()
@@ -121,8 +93,8 @@ void Enermy::AttackState()
 	elapsedTime = ::GetTickCount64() - startTime;
 	if (elapsedTime >= attackDelayTime)
 	{
-		cout << "Attack!" << endl;
 		startTime = ::GetTickCount64();
+		cout << "Attack!" << endl;
 	}
 
 	float distance = VectorUtils::Distance(targetPlayer.lock()->position, this->position);
@@ -134,22 +106,14 @@ void Enermy::AttackState()
 
 void Enermy::DamageState()
 {
-	elapsedTime = ::GetTickCount64() - startTime;
-	if (elapsedTime >= damageDelayTime)
-	{
-		this->enermyState = Protocol::ENERMY_STATE_IDLE;
-	}
+	startTime = ::GetTickCount64();
+	this->enermyState = Protocol::ENERMY_STATE_IDLE;
 }
 
 void Enermy::DieState()
 {
-	S1Vector P0 = this->position;
-	S1Vector v = VectorUtils::ScalarMultiplication(VectorUtils::DownVector(), dieSpeed);
-	S1Vector vt = VectorUtils::ScalarMultiplication(v, 0.1f);
-	S1Vector P = VectorUtils::Add(P0, vt);
-	this->position = P;
-	
-	if (P.z < -200.0f)
+	elapsedTime = ::GetTickCount64() - startTime;
+	if (elapsedTime >= dieDelayTime)
 	{
 		room.load().lock().get()->DoAsync(&Room::LeaveRoom, shared_from_this());
 	}

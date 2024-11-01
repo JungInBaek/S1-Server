@@ -253,7 +253,7 @@ void Room::HandleState(Protocol::C_STATE pkt)
 	{
 		statePkt.set_player_state(pkt.player_state());
 	}
-	else if (pkt.player_state() != Protocol::ENERMY_STATE_NONE)
+	else if (pkt.enermy_state() != Protocol::ENERMY_STATE_NONE)
 	{
 		statePkt.set_enermy_state(pkt.enermy_state());
 	}
@@ -289,9 +289,34 @@ void Room::HandleSniperFire(Protocol::C_SNIPER_FIRE pkt)
 	Broadcast(sendBuffer, pkt.object_id());
 }
 
+void Room::HandleDamageEnermy(Protocol::C_DAMAGE_ENERMY pkt)
+{
+	const uint64 objectId = pkt.object_id();
+	if (_objects.find(objectId) == _objects.end())
+	{
+		return;
+	}
+
+	const uint64 targetId = pkt.target_id();
+	if (_enermies[targetId]->IsEnermy() == false)
+	{
+		return;
+	}
+
+	EnermyRef enermy =_enermies[targetId];
+	enermy->enermyState = Protocol::ENERMY_STATE_DAMAGE;
+	enermy->hp -= pkt.damage();
+
+	if (enermy->hp <= 0)
+	{
+		enermy->startTime = ::GetTickCount64();
+		enermy->enermyState = Protocol::ENERMY_STATE_DIE;
+	}
+}
+
 void Room::UpdateTick()
 {
-	std::cout << "Update Room" << endl;
+	//std::cout << "Update Room" << endl;
 
 	// TODO: 게임 로직
 	// Enermy 로직
