@@ -179,6 +179,18 @@ bool Room::LeaveRoom(ObjectRef object)
 	return success;
 }
 
+bool Room::AttackEnermy(EnermyRef enermy)
+{
+	Protocol::S_ATTACK_ENERMY attackPkt;
+	attackPkt.set_object_id(enermy->objectId);
+	attackPkt.set_target_id(enermy->targetPlayer.lock()->objectId);
+	attackPkt.set_damage(enermy->att);
+
+	Broadcast(ClientPacketHandler::MakeSendBuffer(attackPkt));
+
+	return true;
+}
+
 bool Room::HandleEnterPlayer(PlayerRef player)
 {
 	return EnterRoom(player);

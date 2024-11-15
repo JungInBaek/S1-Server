@@ -14,6 +14,7 @@ public:
 public:
 	Protocol::CreatureType creatureType = Protocol::CREATURE_TYPE_NONE;
 	int32 hp = 100;
+	int32 att = 10;
 
 	float attackRange = 100.0f;
 	float runSpeed = 500.f;

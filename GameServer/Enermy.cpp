@@ -93,8 +93,9 @@ void Enermy::AttackState()
 	elapsedTime = ::GetTickCount64() - startTime;
 	if (elapsedTime >= attackDelayTime)
 	{
+		//cout << "Attack!" << endl;
+		GRoom->DoAsync(&Room::AttackEnermy, static_pointer_cast<Enermy>(shared_from_this()));
 		startTime = ::GetTickCount64();
-		cout << "Attack!" << endl;
 	}
 
 	float distance = VectorUtils::Distance(targetPlayer.lock()->position, this->position);

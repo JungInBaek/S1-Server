@@ -36,6 +36,7 @@ enum : uint16
 	PKT_C_CHANGE_ITEM = 1023,
 	PKT_S_CHANGE_ITEM = 1024,
 	PKT_C_DAMAGE_ENERMY = 1025,
+	PKT_S_ATTACK_ENERMY = 1026,
 };
 
 // Custom Handler
@@ -54,6 +55,7 @@ bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt);
 bool Handle_S_FIRE(PacketSessionRef& session, Protocol::S_FIRE& pkt);
 bool Handle_S_SNIPER_FIRE(PacketSessionRef& session, Protocol::S_SNIPER_FIRE& pkt);
 bool Handle_S_CHANGE_ITEM(PacketSessionRef& session, Protocol::S_CHANGE_ITEM& pkt);
+bool Handle_S_ATTACK_ENERMY(PacketSessionRef& session, Protocol::S_ATTACK_ENERMY& pkt);
 
 
 class ServerPacketHandler
@@ -79,6 +81,7 @@ public:
 		GPacketHandler[PKT_S_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_FIRE>(Handle_S_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_S_SNIPER_FIRE] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_SNIPER_FIRE>(Handle_S_SNIPER_FIRE, session, buffer, len); };
 		GPacketHandler[PKT_S_CHANGE_ITEM] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_CHANGE_ITEM>(Handle_S_CHANGE_ITEM, session, buffer, len); };
+		GPacketHandler[PKT_S_ATTACK_ENERMY] = [](PacketSessionRef& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_ATTACK_ENERMY>(Handle_S_ATTACK_ENERMY, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionRef& session, BYTE* buffer, int32 len)

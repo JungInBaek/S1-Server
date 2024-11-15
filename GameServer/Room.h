@@ -15,6 +15,7 @@ public:
 public:
 	bool EnterRoom(ObjectRef object, bool randPos = true);
 	bool LeaveRoom(ObjectRef object);
+	bool AttackEnermy(EnermyRef enermy);
 
 public:
 	bool HandleEnterPlayer(PlayerRef player);
