@@ -108,6 +108,11 @@ void Enermy::AttackState()
 void Enermy::DamageState()
 {
 	startTime = ::GetTickCount64();
+	if (hp <= 0)
+	{
+		enermyState = Protocol::ENERMY_STATE_DIE;
+		return;
+	}
 	this->enermyState = Protocol::ENERMY_STATE_IDLE;
 }
 

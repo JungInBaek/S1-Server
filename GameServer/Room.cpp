@@ -316,13 +316,14 @@ void Room::HandleDamageEnermy(Protocol::C_DAMAGE_ENERMY pkt)
 	}
 
 	EnermyRef enermy =_enermies[targetId];
-	enermy->enermyState = Protocol::ENERMY_STATE_DAMAGE;
 	enermy->hp -= pkt.damage();
-
-	if (enermy->hp <= 0)
+	enermy->enermyState = Protocol::ENERMY_STATE_DAMAGE;
 	{
-		enermy->startTime = ::GetTickCount64();
-		enermy->enermyState = Protocol::ENERMY_STATE_DIE;
+		Protocol::S_STATE statePkt;
+		statePkt.set_object_id(enermy->objectId);
+		statePkt.set_enermy_state(enermy->enermyState);
+		SendBufferRef sendBuffer = ClientPacketHandler::MakeSendBuffer(statePkt);
+		Broadcast(sendBuffer);
 	}
 }
 
