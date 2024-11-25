@@ -191,6 +191,14 @@ bool Room::AttackEnermy(EnermyRef enermy)
 	return true;
 }
 
+bool Room::EnermyDie(EnermyRef enermy)
+{
+	Protocol::S_ENERMY_DIE diePkt;
+	diePkt.set_object_id(enermy->objectId);
+	Broadcast(ClientPacketHandler::MakeSendBuffer(diePkt));
+	return true;
+}
+
 bool Room::HandleEnterPlayer(PlayerRef player)
 {
 	return EnterRoom(player);

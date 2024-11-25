@@ -37,6 +37,7 @@ enum : uint16
 	PKT_S_CHANGE_ITEM = 1024,
 	PKT_C_DAMAGE_ENERMY = 1025,
 	PKT_S_ATTACK_ENERMY = 1026,
+	PKT_S_ENERMY_DIE = 1027,
 };
 
 // Custom Handler
@@ -98,6 +99,7 @@ public:
 	static SendBufferRef MakeSendBuffer(Protocol::S_SNIPER_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_S_SNIPER_FIRE); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_CHANGE_ITEM& pkt) { return MakeSendBuffer(pkt, PKT_S_CHANGE_ITEM); }
 	static SendBufferRef MakeSendBuffer(Protocol::S_ATTACK_ENERMY& pkt) { return MakeSendBuffer(pkt, PKT_S_ATTACK_ENERMY); }
+	static SendBufferRef MakeSendBuffer(Protocol::S_ENERMY_DIE& pkt) { return MakeSendBuffer(pkt, PKT_S_ENERMY_DIE); }
 
 private:
 	template<typename PacketType, typename ProcessFunc>

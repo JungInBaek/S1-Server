@@ -16,6 +16,7 @@ public:
 	bool EnterRoom(ObjectRef object, bool randPos = true);
 	bool LeaveRoom(ObjectRef object);
 	bool AttackEnermy(EnermyRef enermy);
+	bool EnermyDie(EnermyRef enermy);
 
 public:
 	bool HandleEnterPlayer(PlayerRef player);
@@ -35,7 +36,7 @@ private:
 	bool AddObject(ObjectRef object);
 	bool RemoveObject(uint64 objectId);
 
-private:
+public:
 	void Broadcast(SendBufferRef sendBuffer, uint64 exceptId = 0);
 
 public:

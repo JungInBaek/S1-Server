@@ -96,6 +96,9 @@ extern S_CHATDefaultTypeInternal _S_CHAT_default_instance_;
 class S_DESPAWN;
 struct S_DESPAWNDefaultTypeInternal;
 extern S_DESPAWNDefaultTypeInternal _S_DESPAWN_default_instance_;
+class S_ENERMY_DIE;
+struct S_ENERMY_DIEDefaultTypeInternal;
+extern S_ENERMY_DIEDefaultTypeInternal _S_ENERMY_DIE_default_instance_;
 class S_ENERMY_INFO;
 struct S_ENERMY_INFODefaultTypeInternal;
 extern S_ENERMY_INFODefaultTypeInternal _S_ENERMY_INFO_default_instance_;
@@ -147,6 +150,7 @@ template<> ::Protocol::S_ATTACK_ENERMY* Arena::CreateMaybeMessage<::Protocol::S_
 template<> ::Protocol::S_CHANGE_ITEM* Arena::CreateMaybeMessage<::Protocol::S_CHANGE_ITEM>(Arena*);
 template<> ::Protocol::S_CHAT* Arena::CreateMaybeMessage<::Protocol::S_CHAT>(Arena*);
 template<> ::Protocol::S_DESPAWN* Arena::CreateMaybeMessage<::Protocol::S_DESPAWN>(Arena*);
+template<> ::Protocol::S_ENERMY_DIE* Arena::CreateMaybeMessage<::Protocol::S_ENERMY_DIE>(Arena*);
 template<> ::Protocol::S_ENERMY_INFO* Arena::CreateMaybeMessage<::Protocol::S_ENERMY_INFO>(Arena*);
 template<> ::Protocol::S_ENTER_GAME* Arena::CreateMaybeMessage<::Protocol::S_ENTER_GAME>(Arena*);
 template<> ::Protocol::S_FIRE* Arena::CreateMaybeMessage<::Protocol::S_FIRE>(Arena*);
@@ -4393,6 +4397,154 @@ class S_ATTACK_ENERMY final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Protocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class S_ENERMY_DIE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ENERMY_DIE) */ {
+ public:
+  inline S_ENERMY_DIE() : S_ENERMY_DIE(nullptr) {}
+  ~S_ENERMY_DIE() override;
+  explicit PROTOBUF_CONSTEXPR S_ENERMY_DIE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_ENERMY_DIE(const S_ENERMY_DIE& from);
+  S_ENERMY_DIE(S_ENERMY_DIE&& from) noexcept
+    : S_ENERMY_DIE() {
+    *this = ::std::move(from);
+  }
+
+  inline S_ENERMY_DIE& operator=(const S_ENERMY_DIE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_ENERMY_DIE& operator=(S_ENERMY_DIE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_ENERMY_DIE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_ENERMY_DIE* internal_default_instance() {
+    return reinterpret_cast<const S_ENERMY_DIE*>(
+               &_S_ENERMY_DIE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    27;
+
+  friend void swap(S_ENERMY_DIE& a, S_ENERMY_DIE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_ENERMY_DIE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_ENERMY_DIE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_ENERMY_DIE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_ENERMY_DIE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_ENERMY_DIE& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_ENERMY_DIE& from) {
+    S_ENERMY_DIE::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_ENERMY_DIE* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.S_ENERMY_DIE";
+  }
+  protected:
+  explicit S_ENERMY_DIE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObjectIdFieldNumber = 1,
+  };
+  // uint64 object_id = 1;
+  void clear_object_id();
+  uint64_t object_id() const;
+  void set_object_id(uint64_t value);
+  private:
+  uint64_t _internal_object_id() const;
+  void _internal_set_object_id(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.S_ENERMY_DIE)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    uint64_t object_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -6049,9 +6201,35 @@ inline void S_ATTACK_ENERMY::set_damage(uint32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.S_ATTACK_ENERMY.damage)
 }
 
+// -------------------------------------------------------------------
+
+// S_ENERMY_DIE
+
+// uint64 object_id = 1;
+inline void S_ENERMY_DIE::clear_object_id() {
+  _impl_.object_id_ = uint64_t{0u};
+}
+inline uint64_t S_ENERMY_DIE::_internal_object_id() const {
+  return _impl_.object_id_;
+}
+inline uint64_t S_ENERMY_DIE::object_id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_ENERMY_DIE.object_id)
+  return _internal_object_id();
+}
+inline void S_ENERMY_DIE::_internal_set_object_id(uint64_t value) {
+  
+  _impl_.object_id_ = value;
+}
+inline void S_ENERMY_DIE::set_object_id(uint64_t value) {
+  _internal_set_object_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_ENERMY_DIE.object_id)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

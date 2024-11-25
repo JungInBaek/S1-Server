@@ -111,6 +111,7 @@ void Enermy::DamageState()
 	if (hp <= 0)
 	{
 		enermyState = Protocol::ENERMY_STATE_DIE;
+		GRoom->EnermyDie(static_pointer_cast<Enermy>(shared_from_this()));
 		return;
 	}
 	this->enermyState = Protocol::ENERMY_STATE_IDLE;
